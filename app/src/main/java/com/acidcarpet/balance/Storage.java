@@ -8,8 +8,8 @@ public class Storage {
     }
 
     private Storage(){
-        good_taps= 0;
-        bad_taps = 0;
+        good_taps= 1;
+        bad_taps = 1;
     }
     private int good_taps;
     private int bad_taps;

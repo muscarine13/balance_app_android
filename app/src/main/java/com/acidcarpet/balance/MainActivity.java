@@ -25,8 +25,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+    private long motivator_last_changed;
     private static final String FILENAME = "storage";
     private static final String LOG_TAG = "MAIN_ACTIVITY";
 
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
+        motivator_last_changed = new Date().getTime();
         load();
 
         good_button = (Button) findViewById(R.id.good_button);
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         good_percent_label = (TextView) findViewById(R.id.good_label);
         bad_percent_label = (TextView) findViewById(R.id.bad_label);
         motivation_label = (TextView) findViewById(R.id.motivation_label);
+        change_motivator();
         balance_bar = (ProgressBar) findViewById(R.id.balance_bar);
 
         good_button.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 bad_tap();
             }
         });
+
+
 
 
 
@@ -134,9 +140,11 @@ public class MainActivity extends AppCompatActivity {
         good_percent_label.setText(formatter.format(Storage.get().get_good_percent()*100)+"%");
         bad_percent_label.setText(formatter.format(Storage.get().get_bad_percent()*100)+"%");
 
-        motivation_label.setText("Курочка по зернышку клюёт, а двор весь в помете. \nРусский народ, неизвестный год.");
-
         balance_bar.setProgress((int)(Storage.get().get_bad_percent()*1000)-1);
+
+        if((new Date().getTime()-motivator_last_changed)>60000){
+            change_motivator();
+        }
 
     }
 
@@ -184,5 +192,11 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private void change_motivator(){
+        String[] motivators = getResources().getStringArray(R.array.motivators_rus);
+        motivation_label.setText(motivators[Wrench.random_int(0, motivators.length-1)]);
+        motivator_last_changed = new Date().getTime();
     }
 }

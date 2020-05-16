@@ -3,6 +3,6 @@
     <item
         android:id="@+id/close_button"
         android:icon="@drawable/ic_close"
-        android:title="@string/info_button_title"
+        android:title="@string/close_button_title"
         app:showAsAction="ifRoom|withText"/>
 </menu>

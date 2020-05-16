@@ -1,15 +1,13 @@
 package com.acidcarpet.balance;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,9 +24,11 @@ import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private long motivator_last_changed;
+
     private static final String FILENAME = "storage";
     private static final String LOG_TAG = "MAIN_ACTIVITY";
 
@@ -133,8 +133,6 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
-
-
     private void refresh(){
 
         good_percent_label.setText(formatter.format(Storage.get().get_good_percent()*100)+"%");
@@ -150,16 +148,12 @@ public class MainActivity extends AppCompatActivity {
 
     boolean save() {
         try {
-            // отрываем поток для записи
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
                     openFileOutput(FILENAME, MODE_PRIVATE)));
-            // пишем данные
+
             bw.write(Storage.get().serial());
-            // закрываем поток
             bw.close();
             Log.d(LOG_TAG, "Файл записан");
-            toast.setText("Сохранено!");
-            toast.show();
             return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -171,19 +165,15 @@ public class MainActivity extends AppCompatActivity {
     }
     boolean load() {
         try {
-            // открываем поток для чтения
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     openFileInput(FILENAME)));
             String str = "";
             String out = "";
-            // читаем содержимое
 
             while ((str = br.readLine()) != null) {
                 out+=str;
             }
             Storage.de_serial(out);
-            toast.setText("Загружено!");
-            toast.show();
             return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -195,8 +185,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void change_motivator(){
-        String[] motivators = getResources().getStringArray(R.array.motivators_rus);
+        String[] motivators;
+        if(Locale.getDefault().getLanguage().contentEquals("ru")){
+            motivators = getResources().getStringArray(R.array.motivators_ru);
+        }else{
+            motivators = getResources().getStringArray(R.array.motivators_en);
+        }
         motivation_label.setText(motivators[Wrench.random_int(0, motivators.length-1)]);
         motivator_last_changed = new Date().getTime();
+    }
+    public static Locale getCurrentLocale(Context context){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            return context.getResources().getConfiguration().getLocales().get(0);
+        } else{
+            //noinspection deprecation
+            return context.getResources().getConfiguration().locale;
+        }
     }
 }

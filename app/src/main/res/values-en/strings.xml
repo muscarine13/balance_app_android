@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="tutorial_button_title">Next</string>
+    <string name="close_button_title">Close</string>
+    <string name="info_button_title">Info</string>
+    <string name="good_toast">" Fine! Keep up the good work!"</string>
+    <string name="bad_toast">" Do not abuse it!"</string>
+    <string name="tutorial_intro_text">How often do you choose the side of the mind in decision making? \nHow often do you consciously choose the wrong option to please your desires? \nLet\'s find out.</string>
+    <string name="tutorial_good_text">If you were able to overcome yourself and do the right thing, then press the green button. \n(For example, they refused a cigarette or did not eat a piece of cake in the evening). \nThis will add 1 point in favor of willpower and the victory of reason over weaknesses.</string>
+    <string name="tutorial_bad_text">Have you abandoned your habits and still smoked a cigarette or ate a cake for the night? \nRefused to run in favor of lying on the couch or again did not start cleaning? \nPress the red button immediately! \nPressing will add 1 point in favor of laziness and weakness.</string>
+    <string name="tutorial_summary_text">It is unlikely that someone will be able to do just the right thing, and it will be extremely boring. \nTo always act for the sake of desires is often fraught with consequences, but nice. \nIt is important to observe the balance of desires and reason in order to achieve harmony in your life. \nPress one of the buttons every time you make a choice and get comprehensive information about your balance.</string>
+</resources>

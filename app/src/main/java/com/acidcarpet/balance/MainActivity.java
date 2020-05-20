@@ -15,22 +15,33 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.ads.consent.ConsentForm;
+import com.google.ads.consent.ConsentFormListener;
+import com.google.ads.consent.ConsentInfoUpdateListener;
+import com.google.ads.consent.ConsentInformation;
+import com.google.ads.consent.ConsentStatus;
+import com.google.ads.mediation.admob.AdMobAdapter;
+import com.google.android.gms.ads.AdRequest;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    ConsentForm form;
     private long motivator_last_changed;
 
     private static final String FILENAME = "storage";
-    private static final String LOG_TAG = "MAIN_ACTIVITY";
+    private static final String TAG = "MAIN_ACTIVITY";
 
     NumberFormat formatter = new DecimalFormat("#0.00");
 
@@ -96,10 +107,92 @@ public class MainActivity extends AppCompatActivity {
                 bad_tap();
             }
         });
+        //////////////////////////////////////////////////////////////////////////
+//        if(ConsentInformation.getInstance(MainActivity.this).isRequestLocationInEeaOrUnknown()){
+//
+//            switch (ConsentInformation.getInstance(MainActivity.this).getConsentStatus()){
+//
+//                case NON_PERSONALIZED:
+//                    Bundle extras = new Bundle();
+//                    extras.putString("npa", "1");
+//
+//                    AdRequest request = new AdRequest.Builder()
+//                            .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+//                            .build();
+//                case PERSONALIZED:
+//                    break;
+//
+//                default:
+//
+//                    URL privacyUrl = null;
+//                    try {
+//                        // TODO: Replace with your app's privacy policy URL.
+//                        privacyUrl = new URL("https://www.your.com/privacyurl");
+//                    } catch (MalformedURLException e) {
+//                        e.printStackTrace();
+//                        // Handle error.
+//                    }
+//                    ConsentForm form = new ConsentForm.Builder(MainActivity.this, privacyUrl)
+//                            .withListener(new ConsentFormListener() {
+//                                @Override
+//                                public void onConsentFormLoaded() {
+//                                    // Consent form loaded successfully.
+//                                }
+//
+//                                @Override
+//                                public void onConsentFormOpened() {
+//                                    // Consent form was displayed.
+//                                }
+//
+//                                @Override
+//                                public void onConsentFormClosed(
+//                                        ConsentStatus consentStatus, Boolean userPrefersAdFree) {
+//
+//                                    //closed
+//
+//                                }
+//
+//                                @Override
+//                                public void onConsentFormError(String errorDescription) {
+//                                    // Consent form error.
+//                                }
+//                            })
+//                            .withPersonalizedAdsOption()
+//                            .withNonPersonalizedAdsOption()
+//                            .withAdFreeOption()
+//                            .build();
+//                    form.load();
+//                    form.show();
+//
+//                    break;
+//            }
+//
+//        }else{
+//
+//        }
+//
+//        ConsentInformation consentInformation = ConsentInformation.getInstance(MainActivity.this);
+//        String[] publisherIds = {"pub-2464895162956927"};
+//        consentInformation.requestConsentInfoUpdate(publisherIds, new ConsentInfoUpdateListener() {
+//            @Override
+//            public void onConsentInfoUpdated(ConsentStatus consentStatus) {
+//                // User's consent status successfully updated.
+//            }
+//
+//            @Override
+//            public void onFailedToUpdateConsentInfo(String errorDescription) {
+//                // User's consent status failed to update.
+//            }
+//        });
+//
+//        if(ConsentInformation.getInstance(MainActivity.this).isRequestLocationInEeaOrUnknown()){
+//
+//        }else{
+//
+//        }
+        //////////////////////////////////////////////////////////////////////////
 
-
-
-
+        getConsentStatus();
 
         refresh();
     }
@@ -108,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        getConsentStatus();
         //load();
 
     }
@@ -153,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
 
             bw.write(Storage.get().serial());
             bw.close();
-            Log.d(LOG_TAG, "Файл записан");
+            Log.d(TAG, "Файл записан");
             return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -201,5 +295,92 @@ public class MainActivity extends AppCompatActivity {
             //noinspection deprecation
             return context.getResources().getConfiguration().locale;
         }
+    }
+
+    private void getConsentStatus() {
+        ConsentInformation consentInformation = ConsentInformation.getInstance(this);
+        String[] publisherIds = {"PUBLISHER_ID_HERE"};
+        consentInformation.requestConsentInfoUpdate(publisherIds, new ConsentInfoUpdateListener() {
+            @Override
+            public void onConsentInfoUpdated(ConsentStatus consentStatus) {
+                // User's consent status successfully updated.
+                if (ConsentInformation.getInstance(getBaseContext()).isRequestLocationInEeaOrUnknown()) {
+                    switch (consentStatus) {
+                        case UNKNOWN:
+                            displayConsentForm();
+                            break;
+                        case PERSONALIZED:
+                            initializeAds(true);
+                            break;
+                        case NON_PERSONALIZED:
+                            initializeAds(false);
+                            break;
+                    }
+                } else {
+                    Log.d(TAG, "Not in EU, displaying normal ads");
+                    initializeAds(true);
+                }
+            }
+            @Override
+            public void onFailedToUpdateConsentInfo(String errorDescription) {
+                // User's consent status failed to update.
+            }
+        });
+    }
+    private void displayConsentForm() {
+        URL privacyUrl = null;
+        try {
+            privacyUrl = new URL(getString(R.string.privacy_policy));
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "Error processing privacy policy url", e);
+        }
+        form = new ConsentForm.Builder(this, privacyUrl)
+                .withListener(new ConsentFormListener() {
+                    @Override
+                    public void onConsentFormLoaded() {
+                        // Consent form loaded successfully.
+                        form.show();
+                    }
+                    @Override
+                    public void onConsentFormOpened() {
+                        // Consent form was displayed.
+                    }
+                    @Override
+                    public void onConsentFormClosed(ConsentStatus consentStatus, Boolean userPrefersAdFree) {
+                        // Consent form was closed.
+                        if (consentStatus.equals(ConsentStatus.PERSONALIZED))
+                            initializeAds(true);
+                        else
+                            initializeAds(false);
+                    }
+                    @Override
+                    public void onConsentFormError(String errorDescription) {
+                        // Consent form error. This usually happens if the user is not in the EU.
+                        Log.e(TAG, "Error loading consent form: " + errorDescription);
+                    }
+                })
+                .withPersonalizedAdsOption()
+                .withNonPersonalizedAdsOption()
+                .build();
+
+        form.load();
+    }
+    private void initializeAds(boolean isPersonalized) {
+        // initialize AdMob and configre your ad
+
+        // this is the part you need to add/modify on your code
+        AdRequest adRequest;
+        if (isPersonalized) {
+            adRequest = new AdRequest.Builder().build();
+        } else {
+            Bundle extras = new Bundle();
+            extras.putString("npa", "1");
+            adRequest = new AdRequest.Builder()
+                    .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+                    .build();
+        }
+
+        // load the request into your adView
+
     }
 }

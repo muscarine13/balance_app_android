@@ -3,8 +3,8 @@ package com.acidcarpet.balance;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +22,7 @@ import com.google.ads.consent.ConsentInformation;
 import com.google.ads.consent.ConsentStatus;
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -37,6 +38,8 @@ import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    InterstitialAd mInterstitialAd;
+
     ConsentForm form;
     private long motivator_last_changed;
 
@@ -107,90 +110,9 @@ public class MainActivity extends AppCompatActivity {
                 bad_tap();
             }
         });
-        //////////////////////////////////////////////////////////////////////////
-//        if(ConsentInformation.getInstance(MainActivity.this).isRequestLocationInEeaOrUnknown()){
-//
-//            switch (ConsentInformation.getInstance(MainActivity.this).getConsentStatus()){
-//
-//                case NON_PERSONALIZED:
-//                    Bundle extras = new Bundle();
-//                    extras.putString("npa", "1");
-//
-//                    AdRequest request = new AdRequest.Builder()
-//                            .addNetworkExtrasBundle(AdMobAdapter.class, extras)
-//                            .build();
-//                case PERSONALIZED:
-//                    break;
-//
-//                default:
-//
-//                    URL privacyUrl = null;
-//                    try {
-//                        // TODO: Replace with your app's privacy policy URL.
-//                        privacyUrl = new URL("https://www.your.com/privacyurl");
-//                    } catch (MalformedURLException e) {
-//                        e.printStackTrace();
-//                        // Handle error.
-//                    }
-//                    ConsentForm form = new ConsentForm.Builder(MainActivity.this, privacyUrl)
-//                            .withListener(new ConsentFormListener() {
-//                                @Override
-//                                public void onConsentFormLoaded() {
-//                                    // Consent form loaded successfully.
-//                                }
-//
-//                                @Override
-//                                public void onConsentFormOpened() {
-//                                    // Consent form was displayed.
-//                                }
-//
-//                                @Override
-//                                public void onConsentFormClosed(
-//                                        ConsentStatus consentStatus, Boolean userPrefersAdFree) {
-//
-//                                    //closed
-//
-//                                }
-//
-//                                @Override
-//                                public void onConsentFormError(String errorDescription) {
-//                                    // Consent form error.
-//                                }
-//                            })
-//                            .withPersonalizedAdsOption()
-//                            .withNonPersonalizedAdsOption()
-//                            .withAdFreeOption()
-//                            .build();
-//                    form.load();
-//                    form.show();
-//
-//                    break;
-//            }
-//
-//        }else{
-//
-//        }
-//
-//        ConsentInformation consentInformation = ConsentInformation.getInstance(MainActivity.this);
-//        String[] publisherIds = {"pub-2464895162956927"};
-//        consentInformation.requestConsentInfoUpdate(publisherIds, new ConsentInfoUpdateListener() {
-//            @Override
-//            public void onConsentInfoUpdated(ConsentStatus consentStatus) {
-//                // User's consent status successfully updated.
-//            }
-//
-//            @Override
-//            public void onFailedToUpdateConsentInfo(String errorDescription) {
-//                // User's consent status failed to update.
-//            }
-//        });
-//
-//        if(ConsentInformation.getInstance(MainActivity.this).isRequestLocationInEeaOrUnknown()){
-//
-//        }else{
-//
-//        }
-        //////////////////////////////////////////////////////////////////////////
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
         getConsentStatus();
 
@@ -299,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getConsentStatus() {
         ConsentInformation consentInformation = ConsentInformation.getInstance(this);
-        String[] publisherIds = {"PUBLISHER_ID_HERE"};
+        String[] publisherIds = {"pub-2464895162956927"};
         consentInformation.requestConsentInfoUpdate(publisherIds, new ConsentInfoUpdateListener() {
             @Override
             public void onConsentInfoUpdated(ConsentStatus consentStatus) {
@@ -366,9 +288,8 @@ public class MainActivity extends AppCompatActivity {
         form.load();
     }
     private void initializeAds(boolean isPersonalized) {
-        // initialize AdMob and configre your ad
+        // initialize AdMob and configure your ad
 
-        // this is the part you need to add/modify on your code
         AdRequest adRequest;
         if (isPersonalized) {
             adRequest = new AdRequest.Builder().build();
@@ -378,6 +299,13 @@ public class MainActivity extends AppCompatActivity {
             adRequest = new AdRequest.Builder()
                     .addNetworkExtrasBundle(AdMobAdapter.class, extras)
                     .build();
+        }
+        mInterstitialAd.loadAd(adRequest);
+
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
         }
 
         // load the request into your adView

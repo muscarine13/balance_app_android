@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.acidcarpet.balance.data.Storage;
 import com.google.ads.consent.ConsentForm;
 import com.google.ads.consent.ConsentFormListener;
 import com.google.ads.consent.ConsentInfoUpdateListener;
@@ -61,18 +62,44 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.info_button:
+            case R.id.menu_tutorial_button:
+                TutorialActivity.activate();
+                startActivity(new Intent(this, TutorialActivity.class));
+                return true;
+
+            case R.id.menu_day_button:
+                TutorialActivity.activate();
+                startActivity(new Intent(this, TutorialActivity.class));
+                return true;
+
+            case R.id.menu_week_button:
 
                 TutorialActivity.activate();
                 startActivity(new Intent(this, TutorialActivity.class));
 
                 return true;
+
+            case R.id.menu_month_button:
+
+                TutorialActivity.activate();
+                startActivity(new Intent(this, TutorialActivity.class));
+
+                return true;
+
+            case R.id.menu_settings_button:
+
+                TutorialActivity.activate();
+                startActivity(new Intent(this, TutorialActivity.class));
+
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -114,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
-        getConsentStatus();
+        //getConsentStatus();
 
         refresh();
     }
@@ -123,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getConsentStatus();
+        //getConsentStatus();
         //load();
 
     }

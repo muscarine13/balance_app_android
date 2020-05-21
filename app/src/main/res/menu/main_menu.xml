@@ -1,8 +1,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/info_button"
+        android:id="@+id/menu_tutorial_button"
         android:icon="@drawable/ic_info"
-        android:title="@string/info_button_title"
-        app:showAsAction="ifRoom|withText"/>
+        android:title="@string/main_menu_button_title_tutorial"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_day_button"
+        android:icon="@drawable/ic_day"
+        android:title="@string/main_menu_button_title_day"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_week_button"
+        android:icon="@drawable/ic_week"
+        android:title="@string/main_menu_button_title_week"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_month_button"
+        android:icon="@drawable/ic_month"
+        android:title="@string/main_menu_button_title_month"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_settings_button"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/main_menu_button_title_settings"
+        app:showAsAction="never"/>
+
 </menu>

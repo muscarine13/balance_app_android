@@ -5,7 +5,6 @@
     <string name="good_toast">Отлично! Продолжай в том же духе!</string>
     <string name="bad_toast" translatable="true">В следущий раз обязательно получится(</string>
 
-    <string name="info_button_title" translatable="true">Информация</string>
     <string name="close_button_title" translatable="true">Закрыть</string>
 
     <string name="tutorial_button_title" translatable="true">Дальше</string>
@@ -16,6 +15,13 @@
     <string name="tutorial_summary_text" translatable="true">Вряд-ли у кого-то получится поступать всегда правильно, да и это будет черезвычайно скучно. Поступать всегда в угоду желаниям часто черевато последствиями, но приятно. Важно следить за балансом желаний и разума для достижения гармонии в своей жизни. Нажимайте одну из кнопок каждый раз, когда делаете выбор, и получите исчерпывающую информацию о вашем балансе.</string>
 
 
+    <string name="main_menu_button_title_tutorial" translatable="true">Обучение</string>
+
+    <string name="main_menu_button_title_day" translatable="true">Дни</string>
+    <string name="main_menu_button_title_week" translatable="true">Недели</string>
+    <string name="main_menu_button_title_month" translatable="true">Месяцы</string>
+
+    <string name="main_menu_button_title_settings" translatable="true">Настройки</string>
 
 
 </resources>

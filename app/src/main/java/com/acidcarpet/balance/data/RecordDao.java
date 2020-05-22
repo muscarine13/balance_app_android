@@ -20,6 +20,7 @@ public interface RecordDao {
     @Query("SELECT * FROM record WHERE id = :id")
     Record getById(long id);
 
+
     @Insert
     void insert(Record record);
 

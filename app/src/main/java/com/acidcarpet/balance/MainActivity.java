@@ -189,11 +189,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("TAG","Заводим запись: "+aRecord.id+" : "+aRecord.date+" : "+aRecord.good);
 
 
-
             }
         }.start();
-
-
 
 
         refresh();
@@ -201,8 +198,6 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
     private void bad_tap(){
-
-
 
         new Thread(){
             @Override

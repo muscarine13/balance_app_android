@@ -9,8 +9,9 @@
     <string name="tutorial_bad_text">Have you abandoned your habits and still smoked a cigarette or ate a cake for the night? \nRefused to run in favor of lying on the couch or again did not start cleaning? \nPress the red button immediately! \nPressing will add 1 point in favor of laziness and weakness.</string>
     <string name="tutorial_summary_text">It is unlikely that someone will be able to do just the right thing, and it will be extremely boring. \nTo always act for the sake of desires is often fraught with consequences, but nice. \nIt is important to observe the balance of desires and reason in order to achieve harmony in your life. \nPress one of the buttons every time you make a choice and get comprehensive information about your balance.</string>
     <string name="main_menu_button_title_tutorial">Tutorial</string>
-    <string name="main_menu_button_title_day">Day</string>
-    <string name="main_menu_button_title_week">Week</string>
-    <string name="main_menu_button_title_month">Month</string>
+    <string name="statistic_button_title_day">Day</string>
+    <string name="statistic_button_title_week">Week</string>
+    <string name="statistic_button_title_month">Month</string>
     <string name="main_menu_button_title_settings">Settings</string>
+    <string name="main_menu_button_title_statistic">" Statistics"</string>
 </resources>

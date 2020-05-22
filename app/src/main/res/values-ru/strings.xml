@@ -9,8 +9,9 @@
     <string name="tutorial_bad_text">Пошли на поводу у своих привычек и все-таки выкурили сигарету или сьели торт на ночь? \nОтказались от пробежки в пользу лежания на диване, или опять не приступили к уборке? \nНемедленно нажимайте красную кнопку! \nНажатие добавит 1 балл в пользу лени и слабости.</string>
     <string name="tutorial_summary_text">Вряд-ли у кого-то получится делать только правильно, да и это будет черезвычайно скучно. \nПоступать всегда в угоду желаниям часто черевато последствиями, но приятно. \nВажно наблюдать за балансом желаний и разума для достижения гармонии в своей жизни. \nНажимайте одну из кнопок каждый раз, когда делаете выбор, и получите исчерпывающую информацию о вашем балансе.</string>
     <string name="main_menu_button_title_tutorial">Обучение</string>
-    <string name="main_menu_button_title_day">Дни</string>
-    <string name="main_menu_button_title_week">Недели</string>
-    <string name="main_menu_button_title_month">Месяцы</string>
+    <string name="statistic_button_title_day">Дни</string>
+    <string name="statistic_button_title_week">Недели</string>
+    <string name="statistic_button_title_month">Месяцы</string>
     <string name="main_menu_button_title_settings">Настройки</string>
+    <string name="main_menu_button_title_statistic">Статистика</string>
 </resources>

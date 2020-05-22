@@ -4,26 +4,16 @@
         android:id="@+id/menu_tutorial_button"
         android:icon="@drawable/ic_info"
         android:title="@string/main_menu_button_title_tutorial"
-        app:showAsAction="always|withText"/>
+        app:showAsAction="ifRoom|withText"/>
     <item
         android:id="@+id/menu_day_button"
-        android:icon="@drawable/ic_day"
-        android:title="@string/main_menu_button_title_day"
-        app:showAsAction="always|withText"/>
-    <item
-        android:id="@+id/menu_week_button"
-        android:icon="@drawable/ic_week"
-        android:title="@string/main_menu_button_title_week"
-        app:showAsAction="always|withText"/>
-    <item
-        android:id="@+id/menu_month_button"
-        android:icon="@drawable/ic_month"
-        android:title="@string/main_menu_button_title_month"
-        app:showAsAction="always|withText"/>
+        android:icon="@drawable/ic_statistic"
+        android:title="@string/main_menu_button_title_statistic"
+        app:showAsAction="ifRoom|withText"/>
     <item
         android:id="@+id/menu_settings_button"
         android:icon="@drawable/ic_settings"
         android:title="@string/main_menu_button_title_settings"
-        app:showAsAction="always|withText"/>
+        app:showAsAction="ifRoom|withText"/>
 
 </menu>

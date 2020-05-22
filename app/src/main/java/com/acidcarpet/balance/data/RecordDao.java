@@ -14,6 +14,9 @@ public interface RecordDao {
     @Query("SELECT * FROM record")
     List<Record> getAll();
 
+    @Query("SELECT * FROM record WHERE date BETWEEN :from and :to")
+    List<Record> getFromTo(long from, long to);
+
     @Query("SELECT * FROM record WHERE id = :id")
     Record getById(long id);
 

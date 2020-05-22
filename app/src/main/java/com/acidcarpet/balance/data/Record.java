@@ -4,15 +4,16 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 public class Record {
 
     @PrimaryKey
-    long id;
+    public long id;
 
-    Date date;
+    public long date;
 
-    boolean good;
+    public boolean good;
 
 }

@@ -15,7 +15,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.acidcarpet.balance.data.Storage;
+import com.acidcarpet.balance.data.BalanceDatabase;
+import com.acidcarpet.balance.data.DBContainer;
+import com.acidcarpet.balance.data.Record;
+import com.acidcarpet.balance.data.RecordDao;
+
 import com.google.ads.consent.ConsentForm;
 import com.google.ads.consent.ConsentFormListener;
 import com.google.ads.consent.ConsentInfoUpdateListener;
@@ -35,8 +39,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     InterstitialAd mInterstitialAd;
@@ -113,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
         motivator_last_changed = new Date().getTime();
-        load();
 
         good_button = (Button) findViewById(R.id.good_button);
         bad_button = (Button) findViewById(R.id.bad_button);
@@ -150,27 +157,73 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //getConsentStatus();
-        //load();
+
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        save();
+
     }
 
     private void good_tap(){
 
-        Storage.get().add_good_tap();
+
+
+        new Thread(){
+            @Override
+            public void run() {
+                Log.d("TAG", "Заводим запись.");
+                BalanceDatabase db = DBContainer.getInstance(MainActivity.this).getDB();
+
+                RecordDao recordDao = db.mRecordDao();
+
+                Record aRecord = new Record();
+
+                aRecord.id = generateUniqueId();
+                aRecord.date = new Date().getTime();
+                aRecord.good = true;
+
+                recordDao.insert(aRecord);
+                Log.d("TAG","Заводим запись: "+aRecord.id+" : "+aRecord.date+" : "+aRecord.good);
+
+
+
+            }
+        }.start();
+
+
+
+
         refresh();
         toast.setText(R.string.good_toast);
         toast.show();
     }
     private void bad_tap(){
 
-        Storage.get().add_bad_tap();
+
+
+        new Thread(){
+            @Override
+            public void run() {
+                Log.d("TAG", "Заводим запись.");
+                BalanceDatabase db = DBContainer.getInstance(MainActivity.this).getDB();
+
+                RecordDao recordDao = db.mRecordDao();
+
+                Record aRecord = new Record();
+
+                aRecord.id = generateUniqueId();
+                aRecord.date = new Date().getTime();
+                aRecord.good = false;
+
+                recordDao.insert(aRecord);
+                Log.d("TAG","Заводим запись: "+aRecord.id+" : "+aRecord.date+" : "+aRecord.good);
+
+            }
+        }.start();
+
         refresh();
         toast.setText(R.string.bad_toast);
         toast.show();
@@ -178,10 +231,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void refresh(){
 
-        good_percent_label.setText(formatter.format(Storage.get().get_good_percent()*100)+"%");
-        bad_percent_label.setText(formatter.format(Storage.get().get_bad_percent()*100)+"%");
+        BalanceDatabase db = DBContainer.getInstance(MainActivity.this).getDB();
+        RecordDao recordDao = db.mRecordDao();
 
-        balance_bar.setProgress((int)(Storage.get().get_bad_percent()*1000)-1);
+        double good_percent = DBContainer.getInstance(this).good_percent();
+        double bad_percent = 1 - good_percent;
+
+
+
+        good_percent_label.setText(formatter.format(good_percent*100)+"%");
+        bad_percent_label.setText(formatter.format(bad_percent*100)+"%");
+
+        balance_bar.setProgress((int)(bad_percent*1000)-1);
 
         if((new Date().getTime()-motivator_last_changed)>60000){
             change_motivator();
@@ -189,43 +250,43 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    boolean save() {
-        try {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                    openFileOutput(FILENAME, MODE_PRIVATE)));
-
-            bw.write(Storage.get().serial());
-            bw.close();
-            Log.d(TAG, "Файл записан");
-            return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    boolean load() {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    openFileInput(FILENAME)));
-            String str = "";
-            String out = "";
-
-            while ((str = br.readLine()) != null) {
-                out+=str;
-            }
-            Storage.de_serial(out);
-            return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+//    boolean save() {
+//        try {
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+//                    openFileOutput(FILENAME, MODE_PRIVATE)));
+//
+//            bw.write(Storage.get().serial());
+//            bw.close();
+//            Log.d(TAG, "Файл записан");
+//            return true;
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            return false;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
+//    boolean load() {
+//        try {
+//            BufferedReader br = new BufferedReader(new InputStreamReader(
+//                    openFileInput(FILENAME)));
+//            String str = "";
+//            String out = "";
+//
+//            while ((str = br.readLine()) != null) {
+//                out+=str;
+//            }
+//            Storage.de_serial(out);
+//            return true;
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            return false;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 
     private void change_motivator(){
         String[] motivators;
@@ -337,5 +398,43 @@ public class MainActivity extends AppCompatActivity {
 
         // load the request into your adView
 
+    }
+
+    public static String formatDateTime(Context context, String timeToFormat) {
+
+        String finalDateTime = "";
+
+        SimpleDateFormat iso8601Format = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss");
+
+        Date date = null;
+        if (timeToFormat != null) {
+            try {
+                date = iso8601Format.parse(timeToFormat);
+            } catch (ParseException e) {
+                date = null;
+            }
+
+            if (date != null) {
+                long when = date.getTime();
+                int flags = 0;
+                flags |= android.text.format.DateUtils.FORMAT_SHOW_TIME;
+                flags |= android.text.format.DateUtils.FORMAT_SHOW_DATE;
+                flags |= android.text.format.DateUtils.FORMAT_ABBREV_MONTH;
+                flags |= android.text.format.DateUtils.FORMAT_SHOW_YEAR;
+
+                finalDateTime = android.text.format.DateUtils.formatDateTime(context,
+                        when + TimeZone.getDefault().getOffset(when), flags);
+            }
+        }
+        return finalDateTime;
+    }
+
+    private  Long generateUniqueId () {
+        long val =  - 1 ;
+        do {
+            val =  UUID . randomUUID () . getMostSignificantBits ();
+        } while (val <  0 );
+        return val;
     }
 }

@@ -8,43 +8,45 @@
     android:paddingBottom="8dp">
 
     <TextView
-        android:id="@+id/day_date_text_view"
+        android:id="@+id/months_date_text_view"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:paddingBottom="8dp"
-        android:text="21:05:17"
+        android:text="05.2020"
         android:textAlignment="center"
         android:textColor="@color/my_text"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/day_delete_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="DEL"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/day_good_text_view"
-        android:layout_width="0dp"
+        android:id="@+id/months_bad_text_view"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:paddingBottom="8dp"
-        android:text="GOOD"
+        android:text="49.23%"
         android:textAlignment="center"
-        android:textColor="#43A047"
+        android:textColor="@color/my_red"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/day_delete_button"
-        app:layout_constraintStart_toEndOf="@+id/day_date_text_view"
+        app:layout_constraintEnd_toStartOf="@+id/months_good_text_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/months_good_text_view"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingBottom="8dp"
+        android:text="51.87%"
+        android:textAlignment="center"
+        android:textColor="@color/my_green"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

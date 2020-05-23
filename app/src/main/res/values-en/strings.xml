@@ -14,4 +14,6 @@
     <string name="statistic_button_title_month">Month</string>
     <string name="main_menu_button_title_settings">Settings</string>
     <string name="main_menu_button_title_statistic">" Statistics"</string>
+    <string name="statistics_item_day_good">Good</string>
+    <string name="statistics_item_day_bad">Bad</string>
 </resources>

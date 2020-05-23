@@ -9,6 +9,7 @@
 
     <string name="tutorial_button_title" translatable="true">Дальше</string>
 
+
     <string name="tutorial_intro_text" translatable="true">Как часто вы зная как правильно было бы поступить, поступаете наоборот в угоду своим желаниям? \nНужно чаще баловать себя или наоборот собрать волю в кулак? \nСейчас узнаем.</string>
     <string name="tutorial_good_text" translatable="true">Если вы только что отказались от сигареты или куска торта на ночь, решились выйти на пробежку или наконец начали приборку в доме, которую долго откладывали, то смело нажимайте на зеленую кнопку.\nНажатие добавит 1 балл в пользу силы воли и победы разума над слабостями.</string>
     <string name="tutorial_bad_text" translatable="true">Пошли на поводу у своих привычек и все-таки выкурили сигарету или сьели торт на ночь. Отказались от пробежки в пользу лежания на диване, или опять не приступили к уборке, то нажимайте красную кнопку. \nНажатие добавит 1 балл в пользу лени и слабости.</string>
@@ -22,6 +23,9 @@
     <string name="statistic_button_title_day" translatable="true">Дни</string>
     <string name="statistic_button_title_week" translatable="true">Недели</string>
     <string name="statistic_button_title_month" translatable="true">Месяцы</string>
+
+    <string name="statistics_item_day_good" translatable="true">Хорошо</string>
+    <string name="statistics_item_day_bad" translatable="true">Плохо</string>
 
     <string name="main_menu_button_title_settings" translatable="true">Настройки</string>
 

@@ -11,7 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.acidcarpet.balance.data.DBContainer;
+import com.acidcarpet.balance.data.Record;
 import com.acidcarpet.balance.data.RecordPack;
+
+import java.util.Collections;
+import java.util.List;
 
 public class StatisticActivity extends AppCompatActivity {
 
@@ -21,15 +25,6 @@ public class StatisticActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter mAdapter;
-
-    public static void activate(){
-        active = true;
-        screen = Screen.DAY;
-    }
-    public static void deactivate(){
-        active = false;
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +43,59 @@ public class StatisticActivity extends AppCompatActivity {
 
         // specify an adapter (see also next example)
 
-        RecordPack[] temp = new RecordPack[DBContainer.getInstance(StatisticActivity.this).days().size()];
+        List<RecordPack> pre_temp;
 
-        for (int i = 0; i<DBContainer.getInstance(StatisticActivity.this).days().size();i++){
-            temp[i] = DBContainer.getInstance(StatisticActivity.this).days().get(i);
+
+
+        switch (screen){
+            case DAY:
+                List<Record> pre_temp_day;
+                pre_temp_day = DBContainer.getInstance(StatisticActivity.this).getDB().mRecordDao().getAll();
+                Record[] temp_day;
+                temp_day = new Record[pre_temp_day.size()];
+
+                Collections.reverse(pre_temp_day);
+
+                for (int i = 0; i<pre_temp_day.size();i++){
+                    temp_day[i] = pre_temp_day.get(i);
+                }
+
+                mAdapter = new DayAdapter(temp_day);
+                break;
+            case DAYS:
+                List<RecordPack> pre_temp_days;
+                pre_temp_days = DBContainer.getInstance(StatisticActivity.this).days();
+
+                RecordPack[] temp_days;
+                temp_days = new RecordPack[pre_temp_days.size()];
+
+                Collections.reverse(pre_temp_days);
+
+                for (int i = 0; i<pre_temp_days.size();i++){
+                    temp_days[i] = pre_temp_days.get(i);
+                }
+
+                mAdapter = new DaysAdapter(temp_days);
+                break;
+
+            case MONTHS:
+                List<RecordPack> pre_temp_months;
+                pre_temp_months = DBContainer.getInstance(StatisticActivity.this).months();
+
+                RecordPack[] temp_months;
+                temp_months = new RecordPack[pre_temp_months.size()];
+
+                Collections.reverse(pre_temp_months);
+
+                for (int i = 0; i<pre_temp_months.size();i++){
+                    temp_months[i] = pre_temp_months.get(i);
+                }
+
+                mAdapter = new MonthsAdapter(temp_months);
+                break;
+            default:
         }
 
-        mAdapter = new DayAdapter(temp);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -73,17 +114,22 @@ public class StatisticActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.statistics_day_button:
 
-                //startActivity(new Intent(this, Statistics.class));
+                screen = Screen.DAY;
+                startActivity(new Intent(this, StatisticActivity.class));
+
                 return true;
 
             case R.id.statistics_week_button:
 
-                ///startActivity(new Intent(this, StatisticActivity.class));
+                screen = Screen.DAYS;
+                startActivity(new Intent(this, StatisticActivity.class));
+
                 return true;
 
             case R.id.statistics_month_button:
 
-                ///
+                screen = Screen.MONTHS;
+                startActivity(new Intent(this, StatisticActivity.class));
 
                 return true;
 
@@ -99,13 +145,10 @@ public class StatisticActivity extends AppCompatActivity {
     }
 
 
-
-
-
     public enum Screen{
         DAY("DAY"),
-        WEEK("WEEK"),
-        MONTH("MONTH");
+        DAYS("DAYS"),
+        MONTHS("MONTHS");
 
         String text;
 

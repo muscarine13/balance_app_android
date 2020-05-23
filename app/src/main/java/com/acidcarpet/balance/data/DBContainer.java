@@ -7,6 +7,7 @@ import androidx.room.Room;
 
 import com.acidcarpet.balance.MainActivity;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -76,6 +77,41 @@ public class DBContainer {
 
         return out;
     }
+    public List<RecordPack> months() {
+        Log.d("DBC", "Начали months");
+        List<RecordPack> out = new ArrayList<>();
+
+        RecordDao dao = db.mRecordDao();
+
+        long min = dao.getMin();
+        long max = dao.getMax();
+
+        long from = getStartOfAMonth(new Date(min)).getTime();
+        long to = getEndOfAMonth(new Date(min)).getTime();
+
+
+
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Log.d("DBC", "FROM:TO - "+format1.format(new Date(from))+":"+format1.format(new Date(to)));
+
+
+        do {
+
+            List<Record> records = dao.getFromTo(from, to);
+            if(!records.isEmpty()){
+                out.add(new RecordPack(from, to, records));
+            }
+
+            System.out.println("PACK:\n"+from+to+records.size());
+
+            from = getStartOfAMonth(new Date(to+10000)).getTime();
+            to = getEndOfAMonth(new Date(from)).getTime();
+
+        } while (to < max);
+
+        return out;
+    }
 
 
 
@@ -94,18 +130,6 @@ public class DBContainer {
         return new Date((day.getTime() / oneDayInMillis + 1) * oneDayInMillis - 1);
     }
 
-    static public Date getStartOfAWeek(Date day) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.setTimeInMillis(day.getTime());
-        while (calendar.get(Calendar.DAY_OF_WEEK) > calendar.getFirstDayOfWeek()) {
-            calendar.add(Calendar.DATE, -1);
-            // Substract 1 day until first day of week. }
-        }
-        long firstDayOfWeekTimestamp = calendar.getTimeInMillis();
-        return new Date(firstDayOfWeekTimestamp);
-
-    }
     static public Date getStartOfAMonth(Date day) {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
@@ -114,6 +138,19 @@ public class DBContainer {
             calendar.add(Calendar.DATE, -1);
             // Substract 1 day until first day of month.
         }
+        long firstDayOfMonthTimestamp = calendar.getTimeInMillis();
+        return new Date(firstDayOfMonthTimestamp);
+
+    }
+    static public Date getEndOfAMonth(Date day) {
+        Date start = getStartOfAMonth(day);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.setTimeInMillis(start.getTime());
+
+        calendar.add(Calendar.MONTH , +1);
+
         long firstDayOfMonthTimestamp = calendar.getTimeInMillis();
         return new Date(firstDayOfMonthTimestamp);
 

@@ -50,7 +50,7 @@ public class RecordPack {
                         ((double)bad_sum()+(double)good_sum());
     }
 
-    public String day_date(){
+    public String days_date(){
         String out;
 
         Date from_date;
@@ -59,9 +59,24 @@ public class RecordPack {
         from_date = new Date(from);
         to_date = new Date(to);
 
-        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM");
-        SimpleDateFormat format2 = new SimpleDateFormat("yyyy");
-        out =  format1.format(from_date)+"\n"+format2.format(from_date);
+        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM");
+
+        out =  format1.format(from_date);
+
+        return out;
+    }
+    public String months_date(){
+        String out;
+
+        Date from_date;
+        Date to_date;
+
+        from_date = new Date(from);
+        to_date = new Date(to);
+
+        SimpleDateFormat format1 = new SimpleDateFormat("MM:yyyy");
+
+        out =  format1.format(from_date);
 
         return out;
     }

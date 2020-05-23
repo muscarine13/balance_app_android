@@ -14,4 +14,6 @@
     <string name="statistic_button_title_month">Месяцы</string>
     <string name="main_menu_button_title_settings">Настройки</string>
     <string name="main_menu_button_title_statistic">Статистика</string>
+    <string name="statistics_item_day_good">Хорошо</string>
+    <string name="statistics_item_day_bad">Плохо</string>
 </resources>

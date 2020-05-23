@@ -17,7 +17,7 @@
 
     <string name="main_menu_button_title_tutorial" translatable="true">Обучение</string>
 
-    <string name="main_menu_button_title_statistic" translatable="true">Месяцы</string>
+    <string name="main_menu_button_title_statistic" translatable="true">Статистика</string>
 
     <string name="statistic_button_title_day" translatable="true">Дни</string>
     <string name="statistic_button_title_week" translatable="true">Недели</string>

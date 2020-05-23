@@ -1,22 +1,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_day_button"
+        android:id="@+id/statistics_day_button"
         android:icon="@drawable/ic_day"
         android:title="@string/statistic_button_title_day"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/menu_week_button"
+        android:id="@+id/statistics_week_button"
         android:icon="@drawable/ic_week"
         android:title="@string/statistic_button_title_week"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/menu_month_button"
+        android:id="@+id/statistics_month_button"
         android:icon="@drawable/ic_month"
         android:title="@string/statistic_button_title_month"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/close_button"
+        android:id="@+id/statistics_close_button"
         android:icon="@drawable/ic_close"
         android:title="@string/close_button_title"
         app:showAsAction="always"/>

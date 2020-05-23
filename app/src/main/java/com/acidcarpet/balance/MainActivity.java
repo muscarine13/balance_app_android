@@ -82,29 +82,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, TutorialActivity.class));
                 return true;
 
-            case R.id.menu_day_button:
-                TutorialActivity.activate();
-                startActivity(new Intent(this, TutorialActivity.class));
-                return true;
+            case R.id.menu_statistics_button:
 
-            case R.id.menu_week_button:
-
-                TutorialActivity.activate();
-                startActivity(new Intent(this, TutorialActivity.class));
-
-                return true;
-
-            case R.id.menu_month_button:
-
-                TutorialActivity.activate();
-                startActivity(new Intent(this, TutorialActivity.class));
-
+                startActivity(new Intent(this, StatisticActivity.class));
                 return true;
 
             case R.id.menu_settings_button:
 
-                TutorialActivity.activate();
-                startActivity(new Intent(this, TutorialActivity.class));
+                ///
 
                 return true;
 

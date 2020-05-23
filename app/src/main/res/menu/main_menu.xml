@@ -6,7 +6,7 @@
         android:title="@string/main_menu_button_title_tutorial"
         app:showAsAction="ifRoom|withText"/>
     <item
-        android:id="@+id/menu_day_button"
+        android:id="@+id/menu_statistics_button"
         android:icon="@drawable/ic_statistic"
         android:title="@string/main_menu_button_title_statistic"
         app:showAsAction="ifRoom|withText"/>

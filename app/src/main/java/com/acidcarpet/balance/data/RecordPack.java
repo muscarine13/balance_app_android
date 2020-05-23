@@ -1,5 +1,6 @@
 package com.acidcarpet.balance.data;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -44,9 +45,9 @@ public class RecordPack {
     }
     public double good_percent(){
         return
-                good_sum()
+                (double)good_sum()
                         /
-                        (bad_sum()+good_sum());
+                        ((double)bad_sum()+(double)good_sum());
     }
 
     public String day_date(){
@@ -58,10 +59,9 @@ public class RecordPack {
         from_date = new Date(from);
         to_date = new Date(to);
 
-        out=""+
-                from_date.getDay()+1+"."+from_date.getMonth()+1+
-                "\n"+from_date.getYear();
-
+        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM");
+        SimpleDateFormat format2 = new SimpleDateFormat("yyyy");
+        out =  format1.format(from_date)+"\n"+format2.format(from_date);
 
         return out;
     }

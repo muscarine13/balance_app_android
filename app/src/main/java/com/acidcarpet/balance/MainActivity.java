@@ -41,6 +41,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -167,7 +168,10 @@ public class MainActivity extends AppCompatActivity {
                 Record aRecord = new Record();
 
                 aRecord.id = generateUniqueId();
-                aRecord.date = new Date().getTime();
+
+//                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                aRecord.date =  format1.format(new Date());
+                aRecord.date =  new Date().getTime();
                 aRecord.good = true;
 
                 recordDao.insert(aRecord);
@@ -195,7 +199,10 @@ public class MainActivity extends AppCompatActivity {
                 Record aRecord = new Record();
 
                 aRecord.id = generateUniqueId();
-                aRecord.date = new Date().getTime();
+//                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                aRecord.date =  format1.format(new Date());
+                aRecord.date =  new Date().getTime();
+
                 aRecord.good = false;
 
                 recordDao.insert(aRecord);

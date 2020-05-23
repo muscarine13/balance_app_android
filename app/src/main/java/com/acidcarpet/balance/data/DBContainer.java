@@ -48,98 +48,35 @@ public class DBContainer {
     }
 
     public List<RecordPack> days() {
+        Log.d("DBC", "Начали days");
         List<RecordPack> out = new ArrayList<>();
 
         RecordDao dao = db.mRecordDao();
 
-        long min = 0;
-        long max = 0;
-
-        for (Record rec : dao.getAll()) {
-            if (min == 0) min = rec.date;
-            if (max == 0) max = rec.date;
-
-            if (rec.date > max) max = rec.date;
-            if (rec.date < min) min = rec.date;
-        }
+        long min = dao.getMin();
+        long max = dao.getMax();
 
         long from = getStartOfADay(new Date(min)).getTime();
         long to = getEndOfADay(new Date(min)).getTime();
+        Log.d("DBC", "FROM:TO - "+from+":"+to);
+
 
         do {
+
             List<Record> records = dao.getFromTo(from, to);
-            out.add(new RecordPack(from, to, records));
+            if(!records.isEmpty()){
+                out.add(new RecordPack(from, to, records));
+            }
+
+            System.out.println("PACK:\n"+from+to+records.size());
 
             from += 86400000;
             to += 86400000;
         } while (to < max);
 
-
         return out;
     }
-    public List<RecordPack> weeks() {
 
-        List<RecordPack> out = new ArrayList<>();
-
-        RecordDao dao = db.mRecordDao();
-
-        long min = 0;
-        long max = 0;
-
-        for (Record rec : dao.getAll()) {
-            if (min == 0) min = rec.date;
-            if (max == 0) max = rec.date;
-
-            if (rec.date > max) max = rec.date;
-            if (rec.date < min) min = rec.date;
-        }
-
-        long from = getStartOfAWeek(new Date(min)).getTime();
-        long to = from+604800000;
-
-        do {
-            List<Record> records = dao.getFromTo(from, to);
-            out.add(new RecordPack(from, to, records));
-
-            from += 604800000;
-            to += 604800000;
-        } while (to < max);
-
-
-        return out;
-
-
-    }
-    public List<RecordPack> month() {
-        List<RecordPack> out = new ArrayList<>();
-
-        RecordDao dao = db.mRecordDao();
-
-        long min = 0;
-        long max = 0;
-
-        for (Record rec : dao.getAll()) {
-            if (min == 0) min = rec.date;
-            if (max == 0) max = rec.date;
-
-            if (rec.date > max) max = rec.date;
-            if (rec.date < min) min = rec.date;
-        }
-
-        long from = getStartOfAMonth(new Date(min)).getTime();
-        long to = from+86400000;
-
-        do {
-            List<Record> records = dao.getFromTo(from, to);
-            out.add(new RecordPack(from, to, records));
-
-            from += 86400000;
-            to += 86400000;
-        } while (to < max);
-
-
-        return out;
-    }
 
 
     public static Calendar toCalendar(Date date) {

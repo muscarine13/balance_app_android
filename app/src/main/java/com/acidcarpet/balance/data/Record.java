@@ -12,7 +12,6 @@ public class Record {
     @PrimaryKey
     public long id;
 
-
     public long date;
 
     public boolean good;

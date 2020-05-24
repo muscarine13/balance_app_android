@@ -30,7 +30,6 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
         public TextView date_text_view;
 
         public TextView good_text_view;
-        public TextView bad_text_view;
 
         public Button day_delete_button;
 

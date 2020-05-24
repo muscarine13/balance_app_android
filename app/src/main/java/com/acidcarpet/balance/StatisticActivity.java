@@ -49,15 +49,16 @@ public class StatisticActivity extends AppCompatActivity {
 
         switch (screen){
             case DAY:
+                System.err.println("ЗАШЛИ В ДЕНЬ");
                 List<Record> pre_temp_day;
-                pre_temp_day = DBContainer.getInstance(StatisticActivity.this).getDB().mRecordDao().getAll();
+                pre_temp_day = DBContainer.getInstance(StatisticActivity.this).day();
+                System.err.println("ИЗ БАЗЫ:"+DBContainer.getInstance(StatisticActivity.this).day().isEmpty());
                 Record[] temp_day;
                 temp_day = new Record[pre_temp_day.size()];
 
-                Collections.reverse(pre_temp_day);
-
                 for (int i = 0; i<pre_temp_day.size();i++){
                     temp_day[i] = pre_temp_day.get(i);
+                    System.out.println(temp_day[i]);;
                 }
 
                 mAdapter = new DayAdapter(temp_day);

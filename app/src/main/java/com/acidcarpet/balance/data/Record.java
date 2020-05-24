@@ -3,6 +3,7 @@ package com.acidcarpet.balance.data;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -13,7 +14,7 @@ public class Record {
     @PrimaryKey
     public long id;
 
-    public long date;
+    public String date;
 
     public boolean good;
 
@@ -23,11 +24,16 @@ public class Record {
         Date from_date;
         Date to_date;
 
-        from_date = new Date(date);
+        try {
+            SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            from_date = date_format.parse(date);
+            SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
 
-        SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss");
-
-        out =  format1.format(from_date);
+            out =  format1.format(from_date);
+        } catch (ParseException e) {
+            out="---";
+            e.printStackTrace();
+        }
 
         return out;
     }

@@ -169,9 +169,11 @@ public class MainActivity extends AppCompatActivity {
 
                 aRecord.id = generateUniqueId();
 
-//                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                aRecord.date =  format1.format(new Date());
-                aRecord.date =  new Date().getTime();
+                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                aRecord.date =  format1.format(new Date());
+
+                //aRecord.date =  new Date().getTime();
+
                 aRecord.good = true;
 
                 recordDao.insert(aRecord);
@@ -199,9 +201,11 @@ public class MainActivity extends AppCompatActivity {
                 Record aRecord = new Record();
 
                 aRecord.id = generateUniqueId();
-//                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                aRecord.date =  format1.format(new Date());
-                aRecord.date =  new Date().getTime();
+
+                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                aRecord.date =  format1.format(new Date());
+
+                //aRecord.date =  new Date().getTime();
 
                 aRecord.good = false;
 

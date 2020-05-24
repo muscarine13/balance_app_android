@@ -12,21 +12,46 @@ import java.util.List;
 @Dao
 public interface RecordDao {
 
-    @Query("SELECT * FROM record")
+    @Query("SELECT * FROM record ORDER BY date DESC")
     List<Record> getAll();
 
-    @Query("SELECT * FROM record WHERE date BETWEEN :from and :to")
+    @Query("SELECT * FROM record WHERE date BETWEEN :from and :to ORDER BY date DESC")
     List<Record> getFromTo(long from, long to);
 
     @Query("SELECT * FROM record WHERE id = :id")
     Record getById(long id);
 
+    @Query("SELECT COUNT(good=1) FROM record;")
+    int getGoodSum();
+
+    @Query("SELECT COUNT(good=0) FROM record;")
+    int getBadSum();
+
+
+    @Query("SELECT *\n" +
+            "FROM record\n" +
+            "WHERE date LIKE :date_plus_percent " +
+            "ORDER BY date DESC"
+            )
+    List<Record> getDay(String date_plus_percent);
+
+    @Query("SELECT * \n" +
+            "FROM\n" +
+            "   record\n" +
+            "GROUP BY\n" +
+            "  STRFTIME('%M', date) \n" +
+            "ORDER BY\n" +
+            "   STRFTIME('%M', date) ;")
+    List<Record> getMonth();
+
 
     @Query("SELECT max(date) FROM record")
-    long getMax();
+    String getMax();
+
+    ;
 
     @Query("SELECT min(date) FROM record")
-    long getMin();
+    String getMin();
 
     @Insert
     void insert(Record record);

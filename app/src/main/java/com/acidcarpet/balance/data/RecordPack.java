@@ -6,23 +6,29 @@ import java.util.List;
 
 public class RecordPack {
 
-    private long from;
-    private long to;
+    private String from;
+    private String to;
 
     private List<Record> records;
 
-    public RecordPack(long from, long to, List<Record> records){
+    public RecordPack(String from, String to, List<Record> records){
         this.from = from;
         this.to = to;
         this.records = records;
     }
 
-    public long getFrom() {
-        return from;
+    public void setFrom(String from) {
+        this.from = from;
     }
-    public long getTo() {
-        return to;
+
+    public void setTo(String to) {
+        this.to = to;
     }
+
+    public void setRecords(List<Record> records) {
+        this.records = records;
+    }
+
     public List<Record> getRecords() {
         return records;
     }
@@ -53,15 +59,16 @@ public class RecordPack {
     public String days_date(){
         String out;
 
-        Date from_date;
-        Date to_date;
-
-        from_date = new Date(from);
-        to_date = new Date(to);
-
-        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM");
-
-        out =  format1.format(from_date);
+//        Date from_date;
+//        Date to_date;
+//
+//        from_date = new Date(from);
+//        to_date = new Date(to);
+//
+//        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM");
+//
+//        out =  format1.format(from_date);
+        out = records.get(0).date;
 
         return out;
     }

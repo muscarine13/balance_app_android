@@ -48,32 +48,54 @@ public class DBContainer {
         return good_percent;
     }
 
+    public List<Record> day(){
+        List<Record> out;
+
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+
+        String query =
+                format1.format(new Date())+"%";
+
+        out = getDB().mRecordDao().getDay(query);
+
+        return out;
+    }
     public List<RecordPack> days() {
         Log.d("DBC", "Начали days");
         List<RecordPack> out = new ArrayList<>();
 
         RecordDao dao = db.mRecordDao();
 
-        long min = dao.getMin();
-        long max = dao.getMax();
+        //List<Record> days = dao.getDays();
 
-        long from = getStartOfADay(new Date(min)).getTime();
-        long to = getEndOfADay(new Date(min)).getTime();
-        Log.d("DBC", "FROM:TO - "+from+":"+to);
+//        for (List<Record> day : days){
+//
+//            if(day!=null&&!day.isEmpty()){
+//                out.add(new RecordPack(day.get(0).date, day.get(day.size()-1).date, day));
+//            }
+//
+//        }
 
-
-        do {
-
-            List<Record> records = dao.getFromTo(from, to);
-            if(!records.isEmpty()){
-                out.add(new RecordPack(from, to, records));
-            }
-
-            System.out.println("PACK:\n"+from+to+records.size());
-
-            from += 86400000;
-            to += 86400000;
-        } while (to < max);
+//        long min = dao.getMin();
+//        long max = dao.getMax();
+//
+//        long from = getStartOfADay(new Date(min)).getTime();
+//        long to = getEndOfADay(new Date(min)).getTime();
+//        Log.d("DBC", "FROM:TO - "+from+":"+to);
+//
+//
+//        do {
+//
+//            List<Record> records = dao.getFromTo(from, to);
+//            if(!records.isEmpty()){
+//                out.add(new RecordPack(from, to, records));
+//            }
+//
+//            System.out.println("PACK:\n"+from+to+records.size());
+//
+//            from += 86400000;
+//            to += 86400000;
+//        } while (to < max);
 
         return out;
     }
@@ -82,33 +104,33 @@ public class DBContainer {
         List<RecordPack> out = new ArrayList<>();
 
         RecordDao dao = db.mRecordDao();
-
-        long min = dao.getMin();
-        long max = dao.getMax();
-
-        long from = getStartOfAMonth(new Date(min)).getTime();
-        long to = getEndOfAMonth(new Date(min)).getTime();
-
-
-
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        Log.d("DBC", "FROM:TO - "+format1.format(new Date(from))+":"+format1.format(new Date(to)));
-
-
-        do {
-
-            List<Record> records = dao.getFromTo(from, to);
-            if(!records.isEmpty()){
-                out.add(new RecordPack(from, to, records));
-            }
-
-            System.out.println("PACK:\n"+from+to+records.size());
-
-            from = getStartOfAMonth(new Date(to+10000)).getTime();
-            to = getEndOfAMonth(new Date(from)).getTime();
-
-        } while (to < max);
+//
+//        long min = dao.getMin();
+//        long max = dao.getMax();
+//
+//        long from = getStartOfAMonth(new Date(min)).getTime();
+//        long to = getEndOfAMonth(new Date(min)).getTime();
+//
+//
+//
+//        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//
+//        Log.d("DBC", "FROM:TO - "+format1.format(new Date(from))+":"+format1.format(new Date(to)));
+//
+//
+//        do {
+//
+//            List<Record> records = dao.getFromTo(from, to);
+//            if(!records.isEmpty()){
+//                out.add(new RecordPack(from, to, records));
+//            }
+//
+//            System.out.println("PACK:\n"+from+to+records.size());
+//
+//            from = getStartOfAMonth(new Date(to+10000)).getTime();
+//            to = getEndOfAMonth(new Date(from)).getTime();
+//
+//        } while (to < max);
 
         return out;
     }

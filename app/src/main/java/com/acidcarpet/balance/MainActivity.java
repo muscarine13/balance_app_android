@@ -421,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
         return finalDateTime;
     }
 
-    private  Long generateUniqueId () {
+    public static  Long generateUniqueId () {
         long val =  - 1 ;
         do {
             val =  UUID . randomUUID () . getMostSignificantBits ();

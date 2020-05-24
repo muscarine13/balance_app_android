@@ -1,8 +1,11 @@
 package com.acidcarpet.balance;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +14,15 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.acidcarpet.balance.data.BalanceDatabase;
+import com.acidcarpet.balance.data.DBContainer;
 import com.acidcarpet.balance.data.Record;
+import com.acidcarpet.balance.data.RecordDao;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
     NumberFormat formatter = new DecimalFormat("#0.00");
@@ -83,7 +91,12 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
 
             @Override
             public void onClick(View v) {
-               /// delete
+
+              Activity activity =   (Activity)v.getContext();
+
+                      activity.runOnUiThread(new DeleteThread(v, mDataset[position]));
+
+
             }
         });
 
@@ -93,5 +106,28 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
     @Override
     public int getItemCount() {
         return mDataset.length;
+    }
+
+    public class DeleteThread implements Runnable {
+        Record mRecord;
+        View mView;
+
+        public DeleteThread(View view, Record aRecord){
+            mRecord = aRecord;
+            mView = view;
+        }
+
+        @Override
+        public void run() {
+            BalanceDatabase db = DBContainer.getInstance(mView.getContext()).getDB();
+            RecordDao recordDao = db.mRecordDao();
+            recordDao.delete(mRecord);
+
+            System.err.println("Перед изменением");
+            notifyDataSetChanged();
+            StatisticActivity activity =(StatisticActivity) mView.getContext();
+            activity.setAdapter();
+            System.err.println("После изменения");
+        }
     }
 }

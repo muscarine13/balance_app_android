@@ -7,7 +7,8 @@ import java.util.List;
 
 public class RecordPack {
     public static final SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    public static final SimpleDateFormat date_formatted = new SimpleDateFormat("dd.MM");
+    public static final SimpleDateFormat formatted_days = new SimpleDateFormat("dd.MM");
+    public static final SimpleDateFormat formatted_months = new SimpleDateFormat("MM yyyy");
 
     private String from;
     private String to;
@@ -64,7 +65,7 @@ public class RecordPack {
 
         try {
             Date date = date_format.parse(from);
-            out = date_formatted.format(date);
+            out = formatted_days.format(date);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -73,18 +74,19 @@ public class RecordPack {
         return out;
     }
     public String months_date(){
-        String out;
+        String out = "---";
+        System.err.println("Дата месяца начали");
 
-        Date from_date;
-        Date to_date;
+        try {
+            Date date = date_format.parse(from);
+            out = formatted_months.format(date);
+            System.err.println("Успешно закончили трай");
 
-        from_date = new Date(from);
-        to_date = new Date(to);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        SimpleDateFormat format1 = new SimpleDateFormat("MM:yyyy");
-
-        out =  format1.format(from_date);
-
+        System.err.println("Возвращаем:"+out);
         return out;
     }
 }

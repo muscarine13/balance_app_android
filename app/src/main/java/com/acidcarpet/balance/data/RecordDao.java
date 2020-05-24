@@ -32,7 +32,7 @@ public interface RecordDao {
             "WHERE date LIKE :date_plus_percent " +
             "ORDER BY date DESC"
             )
-    List<Record> getDay(String date_plus_percent);
+    List<Record> getDateQuery(String date_plus_percent);
 
 
     @Query("SELECT max(date) FROM record")

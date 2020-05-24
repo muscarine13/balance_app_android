@@ -53,7 +53,7 @@ public class MonthsAdapter extends RecyclerView.Adapter<MonthsAdapter.MyViewHold
                                                          int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_days, parent, false);
+                .inflate(R.layout.item_months, parent, false);
        ///
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
@@ -65,7 +65,10 @@ public class MonthsAdapter extends RecyclerView.Adapter<MonthsAdapter.MyViewHold
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        holder.date_text_view.setText(mDataset[position].months_date());
+
+            holder.date_text_view.setText(mDataset[position].months_date() + "");
+
+
         holder.bad_text_view.setText(formatter.format((1-mDataset[position].good_percent())*100)+"%");
         holder.good_text_view.setText(formatter.format(mDataset[position].good_percent()*100)+"%");
 

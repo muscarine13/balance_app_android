@@ -5,17 +5,10 @@ import android.util.Log;
 
 import androidx.room.Room;
 
-import com.acidcarpet.balance.MainActivity;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class DBContainer {
@@ -64,7 +57,7 @@ public class DBContainer {
         String query =
                 format1.format(new Date())+"%";
 
-        out = getDB().mRecordDao().getDay(query);
+        out = getDB().mRecordDao().getDateQuery(query);
 
         return out;
     }
@@ -90,7 +83,7 @@ public class DBContainer {
                 System.err.println("День всего один");
                 RecordPack pack;
 
-                List<Record> records = dao.getDay(formatted_current+ "%");
+                List<Record> records = dao.getDateQuery(formatted_current+ "%");
                 //System.err.println("RECORDS"+records.isEmpty());
                 if (records != null&&!records.isEmpty()) {
                     System.err.println("Рекорд пак не пуст");
@@ -107,7 +100,7 @@ public class DBContainer {
                     Calendar current = Calendar.getInstance();
                     current.setTime(day_format.parse(formatted_current));
 
-                    List<Record> records = dao.getDay(day_format.format(current.getTime()) + "%");
+                    List<Record> records = dao.getDateQuery(day_format.format(current.getTime()) + "%");
                     if (records != null&&!records.isEmpty()) {
                         System.err.println("День существует и не пуст");
                         pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
@@ -120,7 +113,7 @@ public class DBContainer {
                 } while (!formatted_current.equals(formatted_max));
 
                 RecordPack pack;
-                List<Record> records = dao.getDay(formatted_max + "%");
+                List<Record> records = dao.getDateQuery(formatted_max + "%");
                 if (records != null&&!records.isEmpty()) {
                     System.err.println("День существует и не пуст");
                     pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
@@ -136,39 +129,71 @@ public class DBContainer {
         return out;
     }
         public List<RecordPack> months() {
-        Log.d("DBC", "Начали months");
-        List<RecordPack> out = new ArrayList<>();
+            Log.d("DBC", "Начали days");
+            List<RecordPack> out = new ArrayList<>();
 
-        //RecordDao dao = db.mRecordDao();
-//
-//        long min = dao.getMin();
-//        long max = dao.getMax();
-//
-//        long from = getStartOfAMonth(new Date(min)).getTime();
-//        long to = getEndOfAMonth(new Date(min)).getTime();
-//
-//
-//
-//        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//
-//        Log.d("DBC", "FROM:TO - "+format1.format(new Date(from))+":"+format1.format(new Date(to)));
-//
-//
-//        do {
-//
-//            List<Record> records = dao.getFromTo(from, to);
-//            if(!records.isEmpty()){
-//                out.add(new RecordPack(from, to, records));
-//            }
-//
-//            System.out.println("PACK:\n"+from+to+records.size());
-//
-//            from = getStartOfAMonth(new Date(to+10000)).getTime();
-//            to = getEndOfAMonth(new Date(from)).getTime();
-//
-//        } while (to < max);
+            RecordDao dao = db.mRecordDao();
 
-        return out;
+            String min = dao.getMin();
+            String max = dao.getMax();
+
+
+            try {
+                SimpleDateFormat month_format = new SimpleDateFormat("yyyy-MM");
+                Date start_time = date_format.parse(min);
+                Date end_time = date_format.parse(max);
+
+                String formatted_current = month_format.format(start_time);
+                String formatted_max = month_format.format(end_time);
+
+                if (formatted_current.equals(formatted_max)) {
+                    System.err.println("Месяц всего один");
+                    RecordPack pack;
+
+                    List<Record> records = dao.getDateQuery(formatted_current+ "%");
+                    //System.err.println("RECORDS"+records.isEmpty());
+                    if (records != null&&!records.isEmpty()) {
+                        System.err.println("Рекорд пак не пуст");
+                        pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
+                        out.add(pack);
+                    }
+
+                } else {
+                    System.err.println("Месяцев несколько");
+                    do {
+                        System.err.println("Начало итерации");
+                        RecordPack pack;
+
+                        Calendar current = Calendar.getInstance();
+                        current.setTime(month_format.parse(formatted_current));
+
+                        List<Record> records = dao.getDateQuery(month_format.format(current.getTime()) + "%");
+                        if (records != null&&!records.isEmpty()) {
+                            System.err.println("Месяц существует и не пуст");
+                            pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
+                            out.add(pack);
+                        }
+
+                        current.add(Calendar.MONTH, 1);
+                        formatted_current = month_format.format(current.getTime());
+
+                    } while (!formatted_current.equals(formatted_max));
+
+                    RecordPack pack;
+                    List<Record> records = dao.getDateQuery(formatted_max + "%");
+                    if (records != null&&!records.isEmpty()) {
+                        System.err.println("Месяц существует и не пуст");
+                        pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
+                        out.add(pack);
+                    }
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return out;
     }
 
 

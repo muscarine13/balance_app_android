@@ -1,10 +1,13 @@
 package com.acidcarpet.balance.data;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class RecordPack {
+    public static final SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleDateFormat date_formatted = new SimpleDateFormat("dd.MM");
 
     private String from;
     private String to;
@@ -56,19 +59,16 @@ public class RecordPack {
                         ((double)bad_sum()+(double)good_sum());
     }
 
-    public String days_date(){
-        String out;
+    public String days_date() {
+        String out = "---";
 
-//        Date from_date;
-//        Date to_date;
-//
-//        from_date = new Date(from);
-//        to_date = new Date(to);
-//
-//        SimpleDateFormat format1 = new SimpleDateFormat("dd.MM");
-//
-//        out =  format1.format(from_date);
-        out = records.get(0).date;
+        try {
+            Date date = date_format.parse(from);
+            out = date_formatted.format(date);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         return out;
     }

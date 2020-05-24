@@ -27,7 +27,6 @@ public interface RecordDao {
     @Query("SELECT COUNT(good=0) FROM record;")
     int getBadSum();
 
-
     @Query("SELECT *\n" +
             "FROM record\n" +
             "WHERE date LIKE :date_plus_percent " +
@@ -35,20 +34,9 @@ public interface RecordDao {
             )
     List<Record> getDay(String date_plus_percent);
 
-    @Query("SELECT * \n" +
-            "FROM\n" +
-            "   record\n" +
-            "GROUP BY\n" +
-            "  STRFTIME('%M', date) \n" +
-            "ORDER BY\n" +
-            "   STRFTIME('%M', date) ;")
-    List<Record> getMonth();
-
 
     @Query("SELECT max(date) FROM record")
     String getMax();
-
-    ;
 
     @Query("SELECT min(date) FROM record")
     String getMin();

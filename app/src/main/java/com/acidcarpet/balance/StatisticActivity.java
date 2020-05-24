@@ -49,10 +49,8 @@ public class StatisticActivity extends AppCompatActivity {
 
         switch (screen){
             case DAY:
-                System.err.println("ЗАШЛИ В ДЕНЬ");
                 List<Record> pre_temp_day;
                 pre_temp_day = DBContainer.getInstance(StatisticActivity.this).day();
-                System.err.println("ИЗ БАЗЫ:"+DBContainer.getInstance(StatisticActivity.this).day().isEmpty());
                 Record[] temp_day;
                 temp_day = new Record[pre_temp_day.size()];
 

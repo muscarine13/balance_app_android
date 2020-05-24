@@ -7,6 +7,7 @@ import androidx.room.Room;
 
 import com.acidcarpet.balance.MainActivity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,14 +19,21 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class DBContainer {
-    private static DBContainer instance;
 
+    public static final SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    private static DBContainer instance;
     public static DBContainer getInstance(Context context) {
         if (instance == null) instance = new DBContainer(context);
         return instance;
     }
 
+
+
+
     private BalanceDatabase db;
+
+
 
 
     private DBContainer(Context context) {
@@ -66,44 +74,72 @@ public class DBContainer {
 
         RecordDao dao = db.mRecordDao();
 
-        //List<Record> days = dao.getDays();
+        String min = dao.getMin();
+        String max = dao.getMax();
 
-//        for (List<Record> day : days){
-//
-//            if(day!=null&&!day.isEmpty()){
-//                out.add(new RecordPack(day.get(0).date, day.get(day.size()-1).date, day));
-//            }
-//
-//        }
 
-//        long min = dao.getMin();
-//        long max = dao.getMax();
-//
-//        long from = getStartOfADay(new Date(min)).getTime();
-//        long to = getEndOfADay(new Date(min)).getTime();
-//        Log.d("DBC", "FROM:TO - "+from+":"+to);
-//
-//
-//        do {
-//
-//            List<Record> records = dao.getFromTo(from, to);
-//            if(!records.isEmpty()){
-//                out.add(new RecordPack(from, to, records));
-//            }
-//
-//            System.out.println("PACK:\n"+from+to+records.size());
-//
-//            from += 86400000;
-//            to += 86400000;
-//        } while (to < max);
+        try {
+            SimpleDateFormat day_format = new SimpleDateFormat("yyyy-MM-dd");
+            Date start_time = date_format.parse(min);
+            Date end_time = date_format.parse(max);
+
+            String formatted_current = day_format.format(start_time);
+            String formatted_max = day_format.format(end_time);
+
+            if (formatted_current.equals(formatted_max)) {
+                System.err.println("День всего один");
+                RecordPack pack;
+
+                List<Record> records = dao.getDay(formatted_current+ "%");
+                //System.err.println("RECORDS"+records.isEmpty());
+                if (records != null&&!records.isEmpty()) {
+                    System.err.println("Рекорд пак не пуст");
+                    pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
+                    out.add(pack);
+                }
+
+            } else {
+                System.err.println("Дней несколько");
+                do {
+                    System.err.println("Начало итерации");
+                    RecordPack pack;
+
+                    Calendar current = Calendar.getInstance();
+                    current.setTime(day_format.parse(formatted_current));
+
+                    List<Record> records = dao.getDay(day_format.format(current.getTime()) + "%");
+                    if (records != null&&!records.isEmpty()) {
+                        System.err.println("День существует и не пуст");
+                        pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
+                        out.add(pack);
+                    }
+
+                    current.add(Calendar.DATE, 1);
+                    formatted_current = day_format.format(current.getTime());
+
+                } while (!formatted_current.equals(formatted_max));
+
+                RecordPack pack;
+                List<Record> records = dao.getDay(formatted_max + "%");
+                if (records != null&&!records.isEmpty()) {
+                    System.err.println("День существует и не пуст");
+                    pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
+                    out.add(pack);
+                }
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return out;
     }
-    public List<RecordPack> months() {
+        public List<RecordPack> months() {
         Log.d("DBC", "Начали months");
         List<RecordPack> out = new ArrayList<>();
 
-        RecordDao dao = db.mRecordDao();
+        //RecordDao dao = db.mRecordDao();
 //
 //        long min = dao.getMin();
 //        long max = dao.getMax();
@@ -135,47 +171,5 @@ public class DBContainer {
         return out;
     }
 
-
-
-    public static Calendar toCalendar(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return cal;
-    }
-
-    static public Date getStartOfADay(Date day) {
-        final long oneDayInMillis = 24 * 60 * 60 * 1000;
-        return new Date(day.getTime() / oneDayInMillis * oneDayInMillis);
-    }
-    static public Date getEndOfADay(Date day) {
-        final long oneDayInMillis = 24 * 60 * 60 * 1000;
-        return new Date((day.getTime() / oneDayInMillis + 1) * oneDayInMillis - 1);
-    }
-
-    static public Date getStartOfAMonth(Date day) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.setTimeInMillis(day.getTime());
-        while (calendar.get(Calendar.DATE) > 1) {
-            calendar.add(Calendar.DATE, -1);
-            // Substract 1 day until first day of month.
-        }
-        long firstDayOfMonthTimestamp = calendar.getTimeInMillis();
-        return new Date(firstDayOfMonthTimestamp);
-
-    }
-    static public Date getEndOfAMonth(Date day) {
-        Date start = getStartOfAMonth(day);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.setTimeInMillis(start.getTime());
-
-        calendar.add(Calendar.MONTH , +1);
-
-        long firstDayOfMonthTimestamp = calendar.getTimeInMillis();
-        return new Date(firstDayOfMonthTimestamp);
-
-    }
 
 }

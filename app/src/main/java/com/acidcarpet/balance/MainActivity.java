@@ -156,8 +156,7 @@ public class MainActivity extends AppCompatActivity {
     private void good_tap(){
 
 
-
-        new Thread(){
+        runOnUiThread(new Runnable(){
             @Override
             public void run() {
                 Log.d("TAG", "Заводим запись.");
@@ -177,11 +176,12 @@ public class MainActivity extends AppCompatActivity {
                 aRecord.good = true;
 
                 recordDao.insert(aRecord);
+                MainActivity.this.refresh();
                 Log.d("TAG","Заводим запись: "+aRecord.id+" : "+aRecord.date+" : "+aRecord.good);
 
 
             }
-        }.start();
+        });
 
 
         refresh();
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void bad_tap(){
 
-        new Thread(){
+        runOnUiThread(new Runnable(){
             @Override
             public void run() {
                 Log.d("TAG", "Заводим запись.");
@@ -210,10 +210,13 @@ public class MainActivity extends AppCompatActivity {
                 aRecord.good = false;
 
                 recordDao.insert(aRecord);
+                MainActivity.this.refresh();
                 Log.d("TAG","Заводим запись: "+aRecord.id+" : "+aRecord.date+" : "+aRecord.good);
 
+
             }
-        }.start();
+        });
+
 
         refresh();
         toast.setText(R.string.bad_toast);

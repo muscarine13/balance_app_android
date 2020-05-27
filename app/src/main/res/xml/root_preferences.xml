@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        android:id="@+id/consent_switch"
+        app:key="consent"
+        app:title="@string/settings_consent_title" />
+    <SwitchPreferenceCompat
+        android:id="@+id/night_theme_switch"
+        app:key="night"
+        app:title="@string/settings_night_title" />
+
+</PreferenceScreen>

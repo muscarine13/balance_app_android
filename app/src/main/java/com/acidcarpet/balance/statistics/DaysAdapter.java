@@ -1,4 +1,4 @@
-package com.acidcarpet.balance;
+package com.acidcarpet.balance.statistics;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,12 +7,13 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.acidcarpet.balance.R;
 import com.acidcarpet.balance.data.RecordPack;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-public class MonthsAdapter extends RecyclerView.Adapter<MonthsAdapter.MyViewHolder> {
+public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.MyViewHolder> {
     NumberFormat formatter = new DecimalFormat("#0.00");
 
     private RecordPack[] mDataset;
@@ -32,9 +33,11 @@ public class MonthsAdapter extends RecyclerView.Adapter<MonthsAdapter.MyViewHold
         public MyViewHolder(View view) {
             super(view);
 
-            this.date_text_view = (TextView) view.findViewById(R.id.months_date_text_view);
-            this.good_text_view = (TextView) view.findViewById(R.id.months_good_text_view);
-            this.bad_text_view = (TextView) view.findViewById(R.id.months_bad_text_view);
+            this.date_text_view = (TextView) view.findViewById(R.id.days_date_text_view);
+
+            this.date_text_view = (TextView) view.findViewById(R.id.days_date_text_view);
+            this.good_text_view = (TextView) view.findViewById(R.id.days_good_text_view);
+            this.bad_text_view = (TextView) view.findViewById(R.id.days_bad_text_view);
 
         }
 
@@ -43,17 +46,17 @@ public class MonthsAdapter extends RecyclerView.Adapter<MonthsAdapter.MyViewHold
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MonthsAdapter(RecordPack[] myDataset) {
+    public DaysAdapter(RecordPack[] myDataset) {
         mDataset = myDataset;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MonthsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                         int viewType) {
+    public DaysAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                       int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_months, parent, false);
+                .inflate(R.layout.item_days, parent, false);
        ///
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
@@ -65,10 +68,7 @@ public class MonthsAdapter extends RecyclerView.Adapter<MonthsAdapter.MyViewHold
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-
-            holder.date_text_view.setText(mDataset[position].months_date() + "");
-
-
+        holder.date_text_view.setText(mDataset[position].days_date());
         holder.bad_text_view.setText(formatter.format((1-mDataset[position].good_percent())*100)+"%");
         holder.good_text_view.setText(formatter.format(mDataset[position].good_percent()*100)+"%");
 

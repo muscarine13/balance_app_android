@@ -11,9 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Balance">
-        <activity android:name=".StatisticActivity"></activity>
-        <activity android:name=".TutorialActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity android:name=".statistics.StatisticActivity" />
+        <activity android:name=".tutorial.TutorialActivity" />
+        <activity android:name=".main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

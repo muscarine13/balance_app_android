@@ -1,4 +1,4 @@
-package com.acidcarpet.balance;
+package com.acidcarpet.balance.tutorial;
 
 import android.content.Intent;
 import androidx.annotation.NonNull;
@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.acidcarpet.balance.R;
+import com.acidcarpet.balance.main.MainActivity;
 
 public class TutorialActivity extends AppCompatActivity {
 

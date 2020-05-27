@@ -1,7 +1,8 @@
-package com.acidcarpet.balance;
+package com.acidcarpet.balance.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +16,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.acidcarpet.balance.R;
+import com.acidcarpet.balance.settings.SettingsActivity;
+import com.acidcarpet.balance.tutorial.TutorialActivity;
+import com.acidcarpet.balance.Wrench;
 import com.acidcarpet.balance.data.BalanceDatabase;
 import com.acidcarpet.balance.data.DBContainer;
 import com.acidcarpet.balance.data.Record;
 import com.acidcarpet.balance.data.RecordDao;
 
+import com.acidcarpet.balance.statistics.StatisticActivity;
 import com.google.ads.consent.ConsentForm;
 import com.google.ads.consent.ConsentFormListener;
 import com.google.ads.consent.ConsentInfoUpdateListener;
@@ -29,26 +35,20 @@ import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-    InterstitialAd mInterstitialAd;
+    InterstitialAd resume_interstitial_ad;
+
 
     ConsentForm form;
     private long motivator_last_changed;
@@ -65,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView bad_percent_label;
     private TextView motivation_label;
     private ProgressBar balance_bar;
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.menu_settings_button:
 
-                ///
-
+                startActivity(new Intent(this, SettingsActivity.class));
                 return true;
 
             default:
@@ -131,10 +128,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        resume_interstitial_ad = new InterstitialAd(this);
+        resume_interstitial_ad.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
-        //getConsentStatus();
+        getConsentStatus();
 
         refresh();
     }
@@ -143,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        getConsentStatus();
 
     }
 
@@ -244,44 +241,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    boolean save() {
-//        try {
-//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-//                    openFileOutput(FILENAME, MODE_PRIVATE)));
-//
-//            bw.write(Storage.get().serial());
-//            bw.close();
-//            Log.d(TAG, "Файл записан");
-//            return true;
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//            return false;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-//    boolean load() {
-//        try {
-//            BufferedReader br = new BufferedReader(new InputStreamReader(
-//                    openFileInput(FILENAME)));
-//            String str = "";
-//            String out = "";
-//
-//            while ((str = br.readLine()) != null) {
-//                out+=str;
-//            }
-//            Storage.de_serial(out);
-//            return true;
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//            return false;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-
     private void change_motivator(){
         String[] motivators;
         if(Locale.getDefault().getLanguage().contentEquals("ru")){
@@ -292,14 +251,6 @@ public class MainActivity extends AppCompatActivity {
         motivation_label.setText(motivators[Wrench.random_int(0, motivators.length-1)]);
         motivator_last_changed = new Date().getTime();
     }
-    public static Locale getCurrentLocale(Context context){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-            return context.getResources().getConfiguration().getLocales().get(0);
-        } else{
-            //noinspection deprecation
-            return context.getResources().getConfiguration().locale;
-        }
-    }
 
     private void getConsentStatus() {
         ConsentInformation consentInformation = ConsentInformation.getInstance(this);
@@ -307,6 +258,20 @@ public class MainActivity extends AppCompatActivity {
         consentInformation.requestConsentInfoUpdate(publisherIds, new ConsentInfoUpdateListener() {
             @Override
             public void onConsentInfoUpdated(ConsentStatus consentStatus) {
+
+                SharedPreferences settings = getSharedPreferences("root_preferences", MODE_PRIVATE);
+
+
+                if(settings.getBoolean("consent", false)){
+
+                }else{
+                    consentStatus = ConsentStatus.UNKNOWN;
+                    settings.edit().remove("consent");
+                    settings.edit().putBoolean("consent", true);
+                }
+
+
+
                 // User's consent status successfully updated.
                 if (ConsentInformation.getInstance(getBaseContext()).isRequestLocationInEeaOrUnknown()) {
                     switch (consentStatus) {
@@ -382,10 +347,10 @@ public class MainActivity extends AppCompatActivity {
                     .addNetworkExtrasBundle(AdMobAdapter.class, extras)
                     .build();
         }
-        mInterstitialAd.loadAd(adRequest);
+        resume_interstitial_ad.loadAd(adRequest);
 
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
+        if (resume_interstitial_ad.isLoaded()) {
+            resume_interstitial_ad.show();
         } else {
             Log.d("TAG", "The interstitial wasn't loaded yet.");
         }
@@ -394,37 +359,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static String formatDateTime(Context context, String timeToFormat) {
-
-        String finalDateTime = "";
-
-        SimpleDateFormat iso8601Format = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss");
-
-        Date date = null;
-        if (timeToFormat != null) {
-            try {
-                date = iso8601Format.parse(timeToFormat);
-            } catch (ParseException e) {
-                date = null;
-            }
-
-            if (date != null) {
-                long when = date.getTime();
-                int flags = 0;
-                flags |= android.text.format.DateUtils.FORMAT_SHOW_TIME;
-                flags |= android.text.format.DateUtils.FORMAT_SHOW_DATE;
-                flags |= android.text.format.DateUtils.FORMAT_ABBREV_MONTH;
-                flags |= android.text.format.DateUtils.FORMAT_SHOW_YEAR;
-
-                finalDateTime = android.text.format.DateUtils.formatDateTime(context,
-                        when + TimeZone.getDefault().getOffset(when), flags);
-            }
-        }
-        return finalDateTime;
-    }
-
-    public static  Long generateUniqueId () {
+    public static Long generateUniqueId () {
         long val =  - 1 ;
         do {
             val =  UUID . randomUUID () . getMostSignificantBits ();

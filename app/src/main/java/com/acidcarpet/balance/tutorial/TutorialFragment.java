@@ -1,4 +1,4 @@
-package com.acidcarpet.balance;
+package com.acidcarpet.balance.tutorial;
 
 
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.acidcarpet.balance.R;
 
 /**
  A simple {@link Fragment} subclass.

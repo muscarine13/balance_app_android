@@ -30,4 +30,13 @@
     <string name="main_menu_button_title_settings" translatable="true">Настройки</string>
 
 
+    <string name="title_activity_settings">Настройки</string>
+    <string name="settings_consent_title">GDPR compliance and ad consent</string>
+    <string name="settings_night_title">Ночная тема</string>
+
+
+    <!-- Preference Titles -->
+
+
+
 </resources>

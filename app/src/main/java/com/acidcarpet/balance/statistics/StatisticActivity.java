@@ -1,4 +1,4 @@
-package com.acidcarpet.balance;
+package com.acidcarpet.balance.statistics;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.acidcarpet.balance.main.MainActivity;
+import com.acidcarpet.balance.R;
 import com.acidcarpet.balance.data.DBContainer;
 import com.acidcarpet.balance.data.Record;
 import com.acidcarpet.balance.data.RecordPack;

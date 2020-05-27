@@ -1,11 +1,7 @@
-package com.acidcarpet.balance;
+package com.acidcarpet.balance.statistics;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.acidcarpet.balance.R;
 import com.acidcarpet.balance.data.BalanceDatabase;
 import com.acidcarpet.balance.data.DBContainer;
 import com.acidcarpet.balance.data.Record;
@@ -21,8 +18,6 @@ import com.acidcarpet.balance.data.RecordDao;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
     NumberFormat formatter = new DecimalFormat("#0.00");

@@ -1,21 +1,26 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/appWidgetBackgroundColor"
     android:padding="@dimen/widget_margin"
     android:theme="@style/Theme.Balance.NoActionBar.AppWidgetContainer">
 
-    <TextView
-        android:id="@+id/appwidget_text"
+    <ImageButton
+        android:id="@+id/small_widget_bad_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="?attr/appWidgetBackgroundColor"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="?attr/appWidgetTextColor"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
-</RelativeLayout>
+        android:layout_weight="1"
+        android:backgroundTint="@color/my_red"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_sloth_filed_white"
+        android:text="Button" />
+
+    <ImageButton
+        android:id="@+id/small_widget_good_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:backgroundTint="@color/my_green"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_lion_filed_white"
+        android:text="Button" />
+</LinearLayout>

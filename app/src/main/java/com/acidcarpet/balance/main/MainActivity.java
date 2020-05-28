@@ -31,6 +31,7 @@ import com.google.ads.consent.ConsentFormListener;
 import com.google.ads.consent.ConsentInfoUpdateListener;
 import com.google.ads.consent.ConsentInformation;
 import com.google.ads.consent.ConsentStatus;
+import com.google.ads.consent.DebugGeography;
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -49,11 +50,9 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
     InterstitialAd resume_interstitial_ad;
 
-
     ConsentForm form;
     private long motivator_last_changed;
 
-    private static final String FILENAME = "storage";
     private static final String TAG = "MAIN_ACTIVITY";
 
     NumberFormat formatter = new DecimalFormat("#0.00");
@@ -131,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         resume_interstitial_ad = new InterstitialAd(this);
         resume_interstitial_ad.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
-        getConsentStatus();
+        //getConsentStatus();
 
         refresh();
     }
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getConsentStatus();
+        //getConsentStatus();
 
     }
 
@@ -255,12 +254,15 @@ public class MainActivity extends AppCompatActivity {
     private void getConsentStatus() {
         ConsentInformation consentInformation = ConsentInformation.getInstance(this);
         String[] publisherIds = {"pub-2464895162956927"};
+
+        //ConsentInformation.getInstance(this).setDebugGeography (DebugGeography.DEBUG_GEOGRAPHY_EEA);
+
+
         consentInformation.requestConsentInfoUpdate(publisherIds, new ConsentInfoUpdateListener() {
             @Override
             public void onConsentInfoUpdated(ConsentStatus consentStatus) {
 
                 SharedPreferences settings = getSharedPreferences("root_preferences", MODE_PRIVATE);
-
 
                 if(settings.getBoolean("consent", false)){
 
@@ -272,11 +274,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                // User's consent status successfully updated.
+                // User's consent status successfully updated. if (ConsentInformation.getInstance(getBaseContext()).isRequestLocationInEeaOrUnknown()) {
                 if (ConsentInformation.getInstance(getBaseContext()).isRequestLocationInEeaOrUnknown()) {
                     switch (consentStatus) {
                         case UNKNOWN:
-                            displayConsentForm();
+                            try{
+                                displayConsentForm();
+                            }catch (Exception e){
+                                Log.d(TAG, "message!!!"+e.getMessage());
+                            }
                             break;
                         case PERSONALIZED:
                             initializeAds(true);
@@ -299,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
     private void displayConsentForm() {
         URL privacyUrl = null;
         try {
-            privacyUrl = new URL(getString(R.string.privacy_policy));
+            privacyUrl = new URL("https://developers.google.com/admob/android/eu-consent");
         } catch (MalformedURLException e) {
             Log.e(TAG, "Error processing privacy policy url", e);
         }

@@ -21,12 +21,7 @@ public class DBContainer {
         return instance;
     }
 
-
-
-
     private BalanceDatabase db;
-
-
 
 
     private DBContainer(Context context) {
@@ -41,7 +36,7 @@ public class DBContainer {
         int good = 0;
         int bad = 0;
 
-        for (Record rec : db.mRecordDao().getAll()) {
+        for (Record rec : day()) {
             if (rec.good) good++;
             else bad++;
         }

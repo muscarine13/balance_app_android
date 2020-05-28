@@ -33,7 +33,7 @@ public class SettingsActivity extends AppCompatActivity {
                     .commit();
         }
 
-        consent = findViewById(R.id.night_theme_switch);
+        //consent = findViewById(R.id.night_theme_switch);
 
     }
 

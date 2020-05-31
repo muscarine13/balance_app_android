@@ -4,5 +4,5 @@
         android:id="@+id/close_button"
         android:icon="@drawable/ic_close"
         android:title="@string/close_button_title"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always"/>
 </menu>

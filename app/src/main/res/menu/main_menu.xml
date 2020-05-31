@@ -4,16 +4,16 @@
         android:id="@+id/menu_tutorial_button"
         android:icon="@drawable/ic_info"
         android:title="@string/main_menu_button_title_tutorial"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/menu_statistics_button"
         android:icon="@drawable/ic_statistic"
         android:title="@string/main_menu_button_title_statistic"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/menu_settings_button"
         android:icon="@drawable/ic_settings"
         android:title="@string/main_menu_button_title_settings"
-        app:showAsAction="ifRoom|withText"/>
+        app:showAsAction="always"/>
 
 </menu>

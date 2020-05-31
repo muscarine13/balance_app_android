@@ -9,6 +9,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -52,6 +54,11 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
+    static {
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES);
+    }
+
     InterstitialAd resume_interstitial_ad;
 
     ConsentForm form;
@@ -105,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //ActionBar bar = getActionBar();
         //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3949AB")));
-
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
         motivator_last_changed = new Date().getTime();

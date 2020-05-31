@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Balance" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorPrimary">@color/my_background</item>
+        <item name="colorPrimaryDark">@color/my_pane_background</item>
         <!-- Secondary brand color. -->
 
         <!-- Status bar color. -->
@@ -12,8 +12,8 @@
     </style>
 
     <style name="Theme.Balance.NoActionBar.AppWidgetContainer" parent="">
-        <item name="appWidgetBackgroundColor">@color/light_blue_600</item>
-        <item name="appWidgetTextColor">@color/light_blue_50</item>
+        <item name="appWidgetBackgroundColor">@color/my_background</item>
+        <item name="appWidgetTextColor">@color/white</item>
     </style>
 
 </resources>

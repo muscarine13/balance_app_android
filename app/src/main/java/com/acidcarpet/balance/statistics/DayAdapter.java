@@ -2,10 +2,12 @@ package com.acidcarpet.balance.statistics;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +36,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
 
         public TextView good_text_view;
 
-        public Button day_delete_button;
+        public ImageButton day_delete_button;
 
 
         public MyViewHolder(View view) {
@@ -42,7 +44,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
 
             this.date_text_view = (TextView) view.findViewById(R.id.day_date_text_view);
             this.good_text_view = (TextView) view.findViewById(R.id.day_good_text_view);
-            this.day_delete_button = (Button) view.findViewById(R.id.day_delete_button);
+            this.day_delete_button = (ImageButton) view.findViewById(R.id.day_delete_button);
 
         }
 
@@ -66,7 +68,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    @SuppressLint("ResourceAsColor")
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
@@ -76,10 +78,11 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
 
         if(mDataset[position].good){
             holder.good_text_view.setText(R.string.statistics_item_day_good);
-            holder.good_text_view.setTextColor(R.color.my_green);
+            holder.good_text_view.setTextColor(Color.parseColor("#43A047"));
+            //
         }else{
             holder.good_text_view.setText(R.string.statistics_item_day_bad);
-            holder.good_text_view.setTextColor(R.color.my_red);
+            holder.good_text_view.setTextColor(Color.parseColor("#E53935"));
         }
 
         holder.day_delete_button.setOnClickListener(new View.OnClickListener() {
@@ -118,11 +121,11 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
             RecordDao recordDao = db.mRecordDao();
             recordDao.delete(mRecord);
 
-            System.err.println("Перед изменением");
+            //System.err.println("Перед изменением");
             notifyDataSetChanged();
             StatisticActivity activity =(StatisticActivity) mView.getContext();
             activity.setAdapter();
-            System.err.println("После изменения");
+            //System.err.println("После изменения");
         }
     }
 }

@@ -103,23 +103,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <ImageButton
             android:id="@+id/bad_button"
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/bad_button_selector"
+            android:backgroundTint="@color/my_red"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_sloth_filed_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/good_button"
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/good_button_selector"
+            android:backgroundTint="@color/my_green"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_lion_filed_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

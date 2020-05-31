@@ -1,4 +1,4 @@
-package com.acidcarpet.balance;
+package com.acidcarpet.balance.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.acidcarpet.balance.R;
 import com.acidcarpet.balance.data.DBContainer;
 import com.acidcarpet.balance.main.MainActivity;
 

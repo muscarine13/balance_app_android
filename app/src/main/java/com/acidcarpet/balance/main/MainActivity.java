@@ -1,8 +1,11 @@
 package com.acidcarpet.balance.main;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
     NumberFormat formatter = new DecimalFormat("#0.00");
 
     private Toast toast;
-    private Button good_button;
-    private Button bad_button;
+    private ImageButton good_button;
+    private ImageButton bad_button;
     private TextView good_percent_label;
     private TextView bad_percent_label;
     private TextView motivation_label;
@@ -99,13 +103,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //ActionBar bar = getActionBar();
+        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3949AB")));
 
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
         motivator_last_changed = new Date().getTime();
 
-        good_button = (Button) findViewById(R.id.good_button);
-        bad_button = (Button) findViewById(R.id.bad_button);
+        good_button = (ImageButton) findViewById(R.id.good_button);
+        bad_button = (ImageButton) findViewById(R.id.bad_button);
         good_percent_label = (TextView) findViewById(R.id.good_label);
         bad_percent_label = (TextView) findViewById(R.id.bad_label);
         motivation_label = (TextView) findViewById(R.id.motivation_label);
@@ -151,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void good_tap(){
-        DBContainer.getInstance(this).add_bad_now();
+        DBContainer.getInstance(this).add_good_now();
         refresh();
         toast.setText(R.string.good_toast);
         toast.show();
@@ -170,8 +176,6 @@ public class MainActivity extends AppCompatActivity {
 
         double good_percent = DBContainer.getInstance(this).good_percent();
         double bad_percent = 1 - good_percent;
-
-
 
         good_percent_label.setText(formatter.format(good_percent*100)+"%");
         bad_percent_label.setText(formatter.format(bad_percent*100)+"%");

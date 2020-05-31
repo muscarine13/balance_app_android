@@ -5,11 +5,15 @@ import android.util.Log;
 
 import androidx.room.Room;
 
+import com.acidcarpet.balance.main.MainActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static com.acidcarpet.balance.main.MainActivity.generateUniqueId;
 
 public class DBContainer {
 
@@ -123,7 +127,7 @@ public class DBContainer {
 
         return out;
     }
-        public List<RecordPack> months() {
+    public List<RecordPack> months() {
             Log.d("DBC", "Начали days");
             List<RecordPack> out = new ArrayList<>();
 
@@ -189,6 +193,39 @@ public class DBContainer {
             }
 
             return out;
+    }
+
+    public synchronized void add_good_now() {
+
+        Log.d("TAG", "Заводим запись.");
+
+        Record aRecord = new Record();
+
+        aRecord.id = generateUniqueId();
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        aRecord.date = format1.format(new Date());
+        //aRecord.date =  new Date().getTime();
+        aRecord.good = true;
+        db.mRecordDao().insert(aRecord);
+
+        Log.d("TAG", "Заводим запись: " + aRecord.id + " : " + aRecord.date + " : " + aRecord.good);
+
+    }
+    public synchronized void add_bad_now() {
+
+        Log.d("TAG", "Заводим запись.");
+
+        Record aRecord = new Record();
+
+        aRecord.id = generateUniqueId();
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        aRecord.date = format1.format(new Date());
+        //aRecord.date =  new Date().getTime();
+        aRecord.good = false;
+        db.mRecordDao().insert(aRecord);
+
+        Log.d("TAG", "Заводим запись: " + aRecord.id + " : " + aRecord.date + " : " + aRecord.good);
+
     }
 
 

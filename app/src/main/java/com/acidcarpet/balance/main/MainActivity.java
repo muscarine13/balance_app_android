@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        refresh();
         //getConsentStatus();
 
     }
@@ -150,70 +151,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void good_tap(){
-
-
-        runOnUiThread(new Runnable(){
-            @Override
-            public void run() {
-                Log.d("TAG", "Заводим запись.");
-                BalanceDatabase db = DBContainer.getInstance(MainActivity.this).getDB();
-
-                RecordDao recordDao = db.mRecordDao();
-
-                Record aRecord = new Record();
-
-                aRecord.id = generateUniqueId();
-
-                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                aRecord.date =  format1.format(new Date());
-
-                //aRecord.date =  new Date().getTime();
-
-                aRecord.good = true;
-
-                recordDao.insert(aRecord);
-                MainActivity.this.refresh();
-                Log.d("TAG","Заводим запись: "+aRecord.id+" : "+aRecord.date+" : "+aRecord.good);
-
-
-            }
-        });
-
-
+        DBContainer.getInstance(this).add_bad_now();
         refresh();
         toast.setText(R.string.good_toast);
         toast.show();
     }
     private void bad_tap(){
-
-        runOnUiThread(new Runnable(){
-            @Override
-            public void run() {
-                Log.d("TAG", "Заводим запись.");
-                BalanceDatabase db = DBContainer.getInstance(MainActivity.this).getDB();
-
-                RecordDao recordDao = db.mRecordDao();
-
-                Record aRecord = new Record();
-
-                aRecord.id = generateUniqueId();
-
-                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                aRecord.date =  format1.format(new Date());
-
-                //aRecord.date =  new Date().getTime();
-
-                aRecord.good = false;
-
-                recordDao.insert(aRecord);
-                MainActivity.this.refresh();
-                Log.d("TAG","Заводим запись: "+aRecord.id+" : "+aRecord.date+" : "+aRecord.good);
-
-
-            }
-        });
-
-
+        DBContainer.getInstance(this).add_bad_now();
         refresh();
         toast.setText(R.string.bad_toast);
         toast.show();

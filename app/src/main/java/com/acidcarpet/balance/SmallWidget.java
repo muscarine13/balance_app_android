@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.acidcarpet.balance.data.DBContainer;
 import com.acidcarpet.balance.main.MainActivity;
 
 /**
@@ -72,7 +73,7 @@ public class SmallWidget extends AppWidgetProvider {
             //views.setOnClickPendingIntent(R.id.small_widget_good_button, pendingIntent);
 
             // Tell the AppWidgetManager to perform an update on the current app widget
-            //appWidgetManager.updateAppWidget(appWidgetId, views);
+            appWidgetManager.updateAppWidget(appWidgetId, views);
 
 
         }
@@ -94,18 +95,28 @@ public class SmallWidget extends AppWidgetProvider {
         super.onReceive(context, intent);
 
         if (WIDGET_GOOD_BUTTON.equals(intent.getAction())) {
-            ///
             Log.e(TAG, "GOOD BUTTON CLICKED");
-            toast = Toast.makeText(context, "GOOD", Toast.LENGTH_SHORT);
-            toast.show();
+            DBContainer.getInstance(context).add_good_now();
 
+            if(toast==null) {
+                toast = Toast.makeText(context, R.string.good_toast, Toast.LENGTH_SHORT);
+            }else{
+                toast.setText(R.string.good_toast);
+            }
+
+            toast.show();
         }
         if (WIDGET_BAD_BUTTON.equals(intent.getAction())) {
             Log.e(TAG, "BAD BUTTON CLICKED");
-            toast = Toast.makeText(context, "BAD", Toast.LENGTH_SHORT);
-            toast.show();
+            DBContainer.getInstance(context).add_bad_now();
 
-            ///
+            if(toast==null) {
+                toast = Toast.makeText(context, R.string.bad_toast, Toast.LENGTH_SHORT);
+            }else{
+                toast.setText(R.string.bad_toast);
+            }
+
+            toast.show();
         }
 
     }

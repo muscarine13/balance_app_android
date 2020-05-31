@@ -10,8 +10,10 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.PreferenceManager;
 
 import android.os.Bundle;
+import android.util.ArraySet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,14 +51,31 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     static {
-        AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_YES);
+        SharedPreferences settings = MainActivity.getSharedPreferences("root_preferences", MODE_PRIVATE);
+        String theme_actual = settings.getString("theme", "1");
+
+        if(theme_actual==null) {
+            settings.edit().remove("theme");
+            settings.edit().putString("theme", "AUTO");
+        }
+        switch (theme_actual){
+
+            case "DAY": AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case "NIGHT": AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            default:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+
+        }
+
     }
 
     InterstitialAd resume_interstitial_ad;
@@ -113,6 +132,12 @@ public class MainActivity extends AppCompatActivity {
         //ActionBar bar = getActionBar();
         //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3949AB")));
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+
+
+
+
+
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
         motivator_last_changed = new Date().getTime();
@@ -152,6 +177,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+
         refresh();
         //getConsentStatus();
 
@@ -226,9 +253,6 @@ public class MainActivity extends AppCompatActivity {
                     settings.edit().remove("consent");
                     settings.edit().putBoolean("consent", true);
                 }
-
-
-
                 // User's consent status successfully updated. if (ConsentInformation.getInstance(getBaseContext()).isRequestLocationInEeaOrUnknown()) {
                 if (ConsentInformation.getInstance(getBaseContext()).isRequestLocationInEeaOrUnknown()) {
                     switch (consentStatus) {

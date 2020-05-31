@@ -5,9 +5,11 @@
         android:id="@+id/consent_switch"
         app:key="consent"
         app:title="@string/settings_consent_title" />
-    <SwitchPreferenceCompat
-        android:id="@+id/night_theme_switch"
-        app:key="night"
-        app:title="@string/settings_night_title" />
+    <ListPreference
+        android:entries="@array/settings_theme_list"
+        android:entryValues="@array/settings_theme_values"
+        android:key="theme"
+        android:title="Ночная тема"
+         />
 
 </PreferenceScreen>

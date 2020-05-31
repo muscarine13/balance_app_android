@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <resources>
+        <string-array name="settings_theme_list">
+            <item>Всегда дневная</item>
+            <item>Всегда ночная</item>
+            <item>Автоматически</item>
+        </string-array>
+
+        <string-array name="settings_theme_values">
+            <item>DAY</item>
+            <item>NIGHT</item>
+            <item>AUTO</item>
+        </string-array>
+
+</resources>

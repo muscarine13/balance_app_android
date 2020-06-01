@@ -10,6 +10,6 @@
         android:entryValues="@array/settings_theme_values"
         android:key="theme"
         android:title="Ночная тема"
-         />
+        android:defaultValue="AUTO"/>
 
 </PreferenceScreen>

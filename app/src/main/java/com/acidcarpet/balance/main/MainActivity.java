@@ -57,24 +57,15 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String APP_PREFERENCES = "root_preferences.xml";
+
+    public static final String APP_PREFERENCES_CONSENT = "consent"; // Согласие на показ персонализированной рекламы
+    public static final String APP_PREFERENCES_THEME = "theme"; // Режим отображения ночной темы
+
+
     static {
-        SharedPreferences settings = MainActivity.getSharedPreferences("root_preferences", MODE_PRIVATE);
-        String theme_actual = settings.getString("theme", "1");
-
-        if(theme_actual==null) {
-            settings.edit().remove("theme");
-            settings.edit().putString("theme", "AUTO");
-        }
-        switch (theme_actual){
-
-            case "DAY": AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                break;
-            case "NIGHT": AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                break;
-            default:
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
-
-        }
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
     }
 
@@ -127,16 +118,41 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.err.println("Вошли в onCreate ");
+
+        //SharedPreferences settings = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        System.err.println(settings.getString(APP_PREFERENCES_THEME, "AUTO"));
+
+        if(settings.contains(APP_PREFERENCES_THEME)){
+            System.err.println("Вошли в if ");
+            switch (settings.getString(APP_PREFERENCES_THEME, "AUTO")){
+                case "DAY": AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    System.err.println("DAY ");
+                    break;
+                case "NIGHT": AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    System.err.println("NIGHT");
+                    break;
+                default:
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+                    System.err.println("DEFAULT ");
+            }
+        }else{
+            System.err.println("Вошли в else ");
+            //settings.edit().remove(APP_PREFERENCES_THEME);
+            settings.edit().putString(APP_PREFERENCES_THEME, "AUTO");
+            settings.edit().commit();
+            settings.edit().apply();
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+        }
+        System.err.println("Перед super onCreate ");
+        getDelegate().applyDayNight();
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //ActionBar bar = getActionBar();
-        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3949AB")));
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-
-
-
-
 
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
@@ -244,14 +260,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onConsentInfoUpdated(ConsentStatus consentStatus) {
 
-                SharedPreferences settings = getSharedPreferences("root_preferences", MODE_PRIVATE);
+                SharedPreferences settings = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
 
-                if(settings.getBoolean("consent", false)){
+                if(settings.getBoolean(APP_PREFERENCES_CONSENT, false)){
 
                 }else{
                     consentStatus = ConsentStatus.UNKNOWN;
-                    settings.edit().remove("consent");
-                    settings.edit().putBoolean("consent", true);
+                    settings.edit().remove(APP_PREFERENCES_CONSENT);
+                    settings.edit().putBoolean(APP_PREFERENCES_CONSENT, true);
                 }
                 // User's consent status successfully updated. if (ConsentInformation.getInstance(getBaseContext()).isRequestLocationInEeaOrUnknown()) {
                 if (ConsentInformation.getInstance(getBaseContext()).isRequestLocationInEeaOrUnknown()) {

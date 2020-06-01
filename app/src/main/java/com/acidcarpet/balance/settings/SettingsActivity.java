@@ -9,6 +9,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.ListPreference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
@@ -19,12 +20,13 @@ import com.acidcarpet.balance.tutorial.TutorialActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    SwitchPreference consent;
-    SwitchPreference night_theme;
+//    SwitchPreference consent;
+//    ListPreference night_theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.settings_activity);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -33,16 +35,13 @@ public class SettingsActivity extends AppCompatActivity {
                     .commit();
         }
 
-        //consent = findViewById(R.id.night_theme_switch);
+        //consent = (SwitchPreference) findViewById(R.id.consent_switch);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.settings_menu, menu);
-
-
-
         return true;
     }
 

@@ -13,4 +13,17 @@
             <item>AUTO</item>
         </string-array>
 
+    <string-array name="settings_consent_list">
+        <item>Персонализированная реклма</item>
+        <item>Неперонализированная реклама</item>
+        <item>Показать соглашение(при следующем запуске)</item>
+    </string-array>
+
+    <string-array name="settings_consent_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+
 </resources>

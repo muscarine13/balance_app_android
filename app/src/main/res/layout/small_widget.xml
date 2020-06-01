@@ -11,8 +11,7 @@
         android:layout_weight="1"
         android:backgroundTint="@color/my_red"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_sloth_filed_white"
-        android:text="Button" />
+        android:src="@drawable/ic_sloth_filed_white" />
 
     <ImageButton
         android:id="@+id/small_widget_good_button"
@@ -21,6 +20,5 @@
         android:layout_weight="1"
         android:backgroundTint="@color/my_green"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_lion_filed_white"
-        android:text="Button" />
+        android:src="@drawable/ic_lion_filed_white" />
 </LinearLayout>

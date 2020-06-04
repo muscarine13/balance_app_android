@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView good_percent_label;
     private TextView bad_percent_label;
     private TextView motivation_label;
+    private TextView author_label;
     private ProgressBar balance_bar;
 
     @Override
@@ -164,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         good_percent_label = (TextView) findViewById(R.id.good_label);
         bad_percent_label = (TextView) findViewById(R.id.bad_label);
         motivation_label = (TextView) findViewById(R.id.motivation_label);
+        author_label = (TextView) findViewById(R.id.author_label);
         change_motivator();
         balance_bar = (ProgressBar) findViewById(R.id.balance_bar);
 
@@ -194,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
 
         refresh();
         getConsentStatus();
@@ -241,12 +242,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void change_motivator(){
         String[] motivators;
+        String[] authors;
         if(Locale.getDefault().getLanguage().contentEquals("ru")){
             motivators = getResources().getStringArray(R.array.motivators_ru);
+            authors = getResources().getStringArray(R.array.authors_ru);
         }else{
             motivators = getResources().getStringArray(R.array.motivators_en);
+            authors = getResources().getStringArray(R.array.authors_en);
         }
-        motivation_label.setText(motivators[Wrench.random_int(0, motivators.length-1)]);
+        int random_index = Wrench.random_int(0, motivators.length-1);
+        motivation_label.setText(motivators[random_index]);
+        author_label.setText(authors[random_index]);
         motivator_last_changed = new Date().getTime();
     }
 

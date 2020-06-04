@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/alfa_slab_one"
             android:text="49.67%"
             android:textAlignment="center"
             android:textColor="@color/my_green"
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/alfa_slab_one"
             android:text="51.54%"
             android:textAlignment="center"
             android:textColor="@color/my_red"
@@ -108,7 +110,7 @@
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/my_red"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_sloth_filed_white"
+            android:src="@drawable/ic_sloth_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -120,7 +122,7 @@
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/my_green"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_lion_filed_white"
+            android:src="@drawable/ic_lion_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -149,19 +151,31 @@
 
         <TextView
             android:id="@+id/motivation_label"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="зззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззз"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="ззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззззз"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/author_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="asasasass sasasasas"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/motivation_label" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

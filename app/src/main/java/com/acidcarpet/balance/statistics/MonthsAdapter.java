@@ -70,8 +70,8 @@ public class MonthsAdapter extends RecyclerView.Adapter<MonthsAdapter.MyViewHold
             holder.date_text_view.setText(mDataset[position].months_date() + "");
 
 
-        holder.bad_text_view.setText(formatter.format((1-mDataset[position].good_percent())*100)+"%");
-        holder.good_text_view.setText(formatter.format(mDataset[position].good_percent()*100)+"%");
+        holder.bad_text_view.setText(formatter.format((1-mDataset[position].good_percent())*100)+"");
+        holder.good_text_view.setText(formatter.format(mDataset[position].good_percent()*100)+"");
 
 
     }

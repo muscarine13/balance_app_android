@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/my_pane_background"
-    android:paddingBottom="8dp">
+    android:background="@color/my_pane_background">
 
     <TextView
         android:id="@+id/days_date_text_view"
@@ -13,11 +12,14 @@
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/comfortaa_bold"
         android:paddingBottom="8dp"
         android:text="21.05"
         android:textAlignment="center"
         android:textColor="@color/my_text"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,11 +29,14 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/comfortaa_bold"
         android:paddingBottom="8dp"
         android:text="49.23%"
         android:textAlignment="center"
         android:textColor="@color/my_red"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/days_good_text_view"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,11 +46,14 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/comfortaa_bold"
         android:paddingBottom="8dp"
         android:text="51.87%"
         android:textAlignment="center"
         android:textColor="@color/my_green"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

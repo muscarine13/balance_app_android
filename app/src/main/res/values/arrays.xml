@@ -25,5 +25,25 @@
         <item>3</item>
     </string-array>
 
+    <string-array name="motivators_ru">
+        <item>Жизнь — как вождение велосипеда. Чтобы сохранить равновесие, ты должен двигаться.</item>
+        <item>Жизнь — как вождение велосипеда. Чтобы сохранить равновесие, ты должен двигаться.</item>
+    </string-array>
+
+    <string-array name="authors_ru">
+        <item>Альберт Эйнштейн</item>
+        <item>Альберт Эйнштейн</item>
+    </string-array>
+
+    <string-array name="motivators_en">
+        <item>Life is like riding a bicycle. To keep your balance, you must keep moving.</item>
+        <item>Life is like riding a bicycle. To keep your balance, you must keep moving.</item>
+    </string-array>
+
+    <string-array name="authors_en">
+        <item>Albert Einstein</item>
+        <item>Albert Einstein</item>
+    </string-array>
+
 
 </resources>

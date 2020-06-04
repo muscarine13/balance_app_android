@@ -69,8 +69,8 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.MyViewHolder> 
         // - replace the contents of the view with that element
 
         holder.date_text_view.setText(mDataset[position].days_date());
-        holder.bad_text_view.setText(formatter.format((1-mDataset[position].good_percent())*100)+"%");
-        holder.good_text_view.setText(formatter.format(mDataset[position].good_percent()*100)+"%");
+        holder.bad_text_view.setText(formatter.format((1-mDataset[position].good_percent())*100)+"");
+        holder.good_text_view.setText(formatter.format(mDataset[position].good_percent()*100)+"");
 
 
     }

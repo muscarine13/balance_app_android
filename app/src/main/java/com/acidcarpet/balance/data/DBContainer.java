@@ -40,6 +40,7 @@ public class DBContainer {
         int good = 0;
         int bad = 0;
 
+        if(day().isEmpty()) return 0;
         for (Record rec : day()) {
             if (rec.good) good++;
             else bad++;

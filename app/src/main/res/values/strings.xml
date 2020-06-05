@@ -29,12 +29,19 @@
 
     <string name="main_menu_button_title_settings" translatable="true">Настройки</string>
 
+    <string name="small_widget_text" translatable="false">balance small widget</string>
 
-    <string name="title_activity_settings">Настройки</string>
-    <string name="settings_consent_title">GDPR compliance and ad consent</string>
-    <string name="settings_night_title">Night theme mode</string>
-    <string name="appwidget_text">Balance Colored</string>
+    <string name="settings_activity_title">Настройки</string>
 
+    <string name="settings_ad_title">Настройки рекламы</string>
+    <string name="settings_ad_personalized">Персонализированная</string>
+    <string name="settings_ad_nonpersonalized">Неперсонализированная</string>
+    <string name="settings_ad_form">Показать форму при следующем показе рекламы</string>
+
+    <string name="settings_theme_title">Темная тема</string>
+    <string name="settings_theme_day">Дневная</string>
+    <string name="settings_theme_night">Ночная</string>
+    <string name="settings_theme_auto">Автоматически</string>
 
 
     <!-- Preference Titles -->

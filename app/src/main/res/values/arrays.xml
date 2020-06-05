@@ -2,9 +2,9 @@
 
     <resources>
         <string-array name="settings_theme_list">
-            <item>Всегда дневная</item>
-            <item>Всегда ночная</item>
-            <item>Автоматически</item>
+            <item>@string/settings_theme_day</item>
+            <item>@string/settings_theme_night</item>
+            <item>@string/settings_theme_auto</item>
         </string-array>
 
         <string-array name="settings_theme_values">
@@ -14,9 +14,9 @@
         </string-array>
 
     <string-array name="settings_consent_list">
-        <item>Персонализированная реклма</item>
-        <item>Неперонализированная реклама</item>
-        <item>Показать соглашение(при следующем запуске)</item>
+        <item>@string/settings_ad_personalized</item>
+        <item>@string/settings_ad_nonpersonalized</item>
+        <item>@string/settings_ad_form</item>
     </string-array>
 
     <string-array name="settings_consent_values">
@@ -27,12 +27,22 @@
 
     <string-array name="motivators_ru">
         <item>Жизнь — как вождение велосипеда. Чтобы сохранить равновесие, ты должен двигаться.</item>
-        <item>Жизнь — как вождение велосипеда. Чтобы сохранить равновесие, ты должен двигаться.</item>
+        <item>Нет прекрасной поверхности без ужасной глубины.</item>
+        <item>Высшая добродетель заключается в том, чтобы задушить свои страсти. Добродетель более глубокая заключается в том, чтобы привести их в равновесие.</item>
+        <item>Где ярче свет - там тени гуще.</item>
+        <item>Когда противодействия нет - равновесие невозможно.</item>
+        <item>Здоровье сохраняется благодаря равновесию в теле влажного, сухого, холодного, тёплого, горького и сладкого.</item>
+        <item>Интеллект — это определенная форма равновесия.</item>
     </string-array>
 
     <string-array name="authors_ru">
         <item>Альберт Эйнштейн</item>
-        <item>Альберт Эйнштейн</item>
+        <item>Фридрих Ницше</item>
+        <item>Альбер Камю</item>
+        <item>Иоганн Гёте</item>
+        <item>Андре Моруа</item>
+        <item>Гиппократ</item>
+        <item>Жан Пиаже</item>
     </string-array>
 
     <string-array name="motivators_en">

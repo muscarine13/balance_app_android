@@ -20,17 +20,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class StatisticActivity extends AppCompatActivity {
-
     private static Screen screen = Screen.DAY;
-    private static boolean active = false;
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter mAdapter;
 
     public void setAdapter(){
-        List<RecordPack> pre_temp;
-
         switch (screen){
             case DAY:
                 mAdapter = generate_day_adapter();
@@ -44,7 +40,6 @@ public class StatisticActivity extends AppCompatActivity {
                 break;
             default:
         }
-
         recyclerView.setAdapter(mAdapter);
     }
     @Override
@@ -73,20 +68,14 @@ public class StatisticActivity extends AppCompatActivity {
         super.onRestart();
         setContentView(R.layout.activity_statistic);
         recyclerView = (RecyclerView) findViewById(R.id.statistic_recycler_view);
-
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         // specify an adapter (see also next example)
-
-        List<RecordPack> pre_temp;
-
-       setAdapter();
+        setAdapter();
 
         recyclerView.setAdapter(mAdapter);
     }
@@ -102,31 +91,23 @@ public class StatisticActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.statistics_day_button:
-
                 screen = Screen.DAY;
                 startActivity(new Intent(this, StatisticActivity.class));
-
                 return true;
 
             case R.id.statistics_week_button:
-
                 screen = Screen.DAYS;
                 startActivity(new Intent(this, StatisticActivity.class));
-
                 return true;
 
             case R.id.statistics_month_button:
-
                 screen = Screen.MONTHS;
                 startActivity(new Intent(this, StatisticActivity.class));
-
                 return true;
 
             case R.id.statistics_close_button:
-
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
-
 
             default:
                 return super.onOptionsItemSelected(item);

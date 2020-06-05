@@ -61,13 +61,9 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-
-
-    List<String> testDeviceIds = Arrays.asList("6A510B5A77801730E22A1AA90F8CB1DF");
-
     SharedPreferences settings;
 
-    public static final String APP_PREFERENCES = "root_preferences.xml";
+    //public static final String APP_PREFERENCES = "root_preferences.xml";
 
     public static final String APP_PREFERENCES_CONSENT = "consent"; // Согласие на показ персонализированной рекламы
     public static final String APP_PREFERENCES_THEME = "theme"; // Режим отображения ночной темы
@@ -106,12 +102,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.menu_statistics_button:
-
                 startActivity(new Intent(this, StatisticActivity.class));
                 return true;
 
             case R.id.menu_settings_button:
-
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
 
@@ -143,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     //System.err.println("DEFAULT ");
             }
         }else{
-            System.err.println("Вошли в else ");
+            //System.err.println("Вошли в else ");
             //settings.edit().remove(APP_PREFERENCES_THEME);
             settings.edit().putString(APP_PREFERENCES_THEME, "AUTO").apply();
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
@@ -154,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
 
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
@@ -187,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         resume_interstitial_ad = new InterstitialAd(this);
         resume_interstitial_ad.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
-        getConsentStatus();
+        //getConsentStatus();
 
         refresh();
     }
@@ -198,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         refresh();
-        getConsentStatus();
+        //getConsentStatus();
 
     }
 
@@ -223,11 +216,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void refresh(){
 
-        BalanceDatabase db = DBContainer.getInstance(MainActivity.this).getDB();
-        RecordDao recordDao = db.mRecordDao();
+        //BalanceDatabase db = DBContainer.getInstance(MainActivity.this).getDB();
+        //RecordDao recordDao = db.mRecordDao();
 
-        double good_percent = DBContainer.getInstance(this).good_percent();
-        double bad_percent = 1 - good_percent;
+        double good_percent;
+        double bad_percent;
+
+        if(DBContainer.getInstance(this).good_percent()==0){
+            good_percent = 0;
+            bad_percent = 0;
+        }else{
+            good_percent = DBContainer.getInstance(this).good_percent();
+            bad_percent = 1 - good_percent;
+        }
 
         good_percent_label.setText(formatter.format(good_percent*100)+"%");
         bad_percent_label.setText(formatter.format(bad_percent*100)+"%");

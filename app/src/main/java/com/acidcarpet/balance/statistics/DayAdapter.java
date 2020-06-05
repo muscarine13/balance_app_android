@@ -22,7 +22,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
-    NumberFormat formatter = new DecimalFormat("#0.00");
+    //NumberFormat formatter = new DecimalFormat("#0.00");
 
     private Record[] mDataset;
 
@@ -31,13 +31,9 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
     // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-
         public TextView date_text_view;
-
         public TextView good_text_view;
-
         public ImageButton day_delete_button;
-
 
         public MyViewHolder(View view) {
             super(view);
@@ -45,9 +41,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
             this.date_text_view = (TextView) view.findViewById(R.id.day_date_text_view);
             this.good_text_view = (TextView) view.findViewById(R.id.day_good_text_view);
             this.day_delete_button = (ImageButton) view.findViewById(R.id.day_delete_button);
-
         }
-
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -57,8 +51,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
 
     // Create new views (invoked by the layout manager)
     @Override
-    public DayAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                      int viewType) {
+    public DayAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_day, parent, false);
@@ -73,7 +66,6 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-
         holder.date_text_view.setText(mDataset[position].day_date());
 
         if(mDataset[position].good){
@@ -86,18 +78,12 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
         }
 
         holder.day_delete_button.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
               Activity activity =   (Activity)v.getContext();
-
                       activity.runOnUiThread(new DeleteThread(v, mDataset[position]));
-
-
             }
         });
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -120,7 +106,6 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.MyViewHolder> {
             BalanceDatabase db = DBContainer.getInstance(mView.getContext()).getDB();
             RecordDao recordDao = db.mRecordDao();
             recordDao.delete(mRecord);
-
             //System.err.println("Перед изменением");
             notifyDataSetChanged();
             StatisticActivity activity =(StatisticActivity) mView.getContext();

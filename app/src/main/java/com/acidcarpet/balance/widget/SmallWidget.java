@@ -27,7 +27,7 @@ public class SmallWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
+        CharSequence widgetText = context.getString(R.string.small_widget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.small_widget);
 
@@ -96,7 +96,7 @@ public class SmallWidget extends AppWidgetProvider {
         super.onReceive(context, intent);
 
         if (WIDGET_GOOD_BUTTON.equals(intent.getAction())) {
-            Log.e(TAG, "GOOD BUTTON CLICKED");
+            //Log.e(TAG, "GOOD BUTTON CLICKED");
             DBContainer.getInstance(context).add_good_now();
 
             if(toast==null) {
@@ -108,7 +108,7 @@ public class SmallWidget extends AppWidgetProvider {
             toast.show();
         }
         if (WIDGET_BAD_BUTTON.equals(intent.getAction())) {
-            Log.e(TAG, "BAD BUTTON CLICKED");
+            //Log.e(TAG, "BAD BUTTON CLICKED");
             DBContainer.getInstance(context).add_bad_now();
 
             if(toast==null) {

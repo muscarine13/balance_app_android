@@ -23,7 +23,7 @@
 
         <activity
             android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/settings_activity_title" />
         <activity android:name=".statistics.StatisticActivity" />
         <activity android:name=".tutorial.TutorialActivity" />
         <activity android:name=".main.MainActivity">

@@ -16,4 +16,13 @@
     <string name="main_menu_button_title_statistic">Статистика</string>
     <string name="statistics_item_day_good">Хорошо</string>
     <string name="statistics_item_day_bad">Плохо</string>
+    <string name="settings_activity_title">Настройки</string>
+    <string name="settings_ad_title">Реклама</string>
+    <string name="settings_ad_personalized">Персонализированная (по умолчанию)</string>
+    <string name="settings_ad_nonpersonalized">Не персонализированная (только ЕС)</string>
+    <string name="settings_ad_form">Показать форму (только ЕС)</string>
+    <string name="settings_theme_title">Ночная тема</string>
+    <string name="settings_theme_day">Дневная</string>
+    <string name="settings_theme_night">Ночная</string>
+    <string name="settings_theme_auto">Автоматически</string>
 </resources>

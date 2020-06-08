@@ -23,10 +23,15 @@
 
         <activity
             android:name=".settings.SettingsActivity"
-            android:label="@string/settings_activity_title" />
-        <activity android:name=".statistics.StatisticActivity" />
-        <activity android:name=".tutorial.TutorialActivity" />
-        <activity android:name=".main.MainActivity">
+            android:label="@string/settings_activity_title"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".statistics.StatisticActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".tutorial.TutorialActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.MainActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

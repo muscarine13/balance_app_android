@@ -24,14 +24,15 @@
 
     <ImageButton
         android:id="@+id/day_delete_button"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
         android:backgroundTint="@color/my_red"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_trash"
+        android:src="@drawable/ic_basket_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

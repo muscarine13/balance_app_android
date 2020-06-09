@@ -85,34 +85,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView motivation_label;
     private TextView author_label;
     private ProgressBar balance_bar;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_tutorial_button:
-                TutorialActivity.activate();
-                startActivity(new Intent(this, TutorialActivity.class));
-                return true;
-
-            case R.id.menu_statistics_button:
-                startActivity(new Intent(this, StatisticActivity.class));
-                return true;
-
-            case R.id.menu_settings_button:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+    private ImageButton tutorial_button;
+    private ImageButton statistics_button;
+    private ImageButton settings_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +137,29 @@ public class MainActivity extends AppCompatActivity {
         change_motivator();
         balance_bar = (ProgressBar) findViewById(R.id.balance_bar);
 
+        tutorial_button = (ImageButton) findViewById(R.id.tutorial_button);
+        statistics_button= (ImageButton) findViewById(R.id.statistics_button);
+        settings_button= (ImageButton) findViewById(R.id.settings_button);
+
+        tutorial_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tutorial_tap();
+            }
+        });
+        statistics_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statistics_tap();
+            }
+        });
+        settings_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                settings_tap();
+            }
+        });
+
         good_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -180,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         resume_interstitial_ad = new InterstitialAd(this);
         resume_interstitial_ad.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
-        //getConsentStatus();
+        getConsentStatus();
 
         refresh();
     }
@@ -212,6 +210,17 @@ public class MainActivity extends AppCompatActivity {
         refresh();
         toast.setText(R.string.bad_toast);
         toast.show();
+    }
+
+    private void tutorial_tap(){
+        TutorialActivity.activate();
+        startActivity(new Intent(this, TutorialActivity.class));
+    }
+    private void statistics_tap(){
+        startActivity(new Intent(this, StatisticActivity.class));
+    }
+    private void settings_tap(){
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 
     private void refresh(){

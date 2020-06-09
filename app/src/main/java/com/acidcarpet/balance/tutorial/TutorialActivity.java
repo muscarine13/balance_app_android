@@ -8,14 +8,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.acidcarpet.balance.R;
 import com.acidcarpet.balance.main.MainActivity;
 
 public class TutorialActivity extends AppCompatActivity {
-
     private static Screen screen = Screen.INTRO;
     private static boolean active = false;
+
+    private ImageButton cancel_button;
 
     public static void activate(){
         active = true;
@@ -43,26 +46,6 @@ public class TutorialActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tutorial_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.close_button:
-
-                TutorialActivity.activate();
-                startActivity(new Intent(this, MainActivity.class));
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -85,9 +68,18 @@ public class TutorialActivity extends AppCompatActivity {
                     .commit();
         }
 
+        cancel_button = (ImageButton) findViewById(R.id.tutorial_cancel_button);
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancel_button_click();
+            }
+        });
 
-
-
+    }
+    private void cancel_button_click(){
+        TutorialActivity.activate();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     public enum Screen{

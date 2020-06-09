@@ -1,14 +1,14 @@
 package com.acidcarpet.balance.statistics;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.acidcarpet.balance.main.MainActivity;
 import com.acidcarpet.balance.R;
@@ -25,6 +25,10 @@ public class StatisticActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter mAdapter;
+    private ImageButton cancel_button;
+    private Button today_button;
+    private Button days_button;
+    private Button months_button;
 
     public void setAdapter(){
         switch (screen){
@@ -34,7 +38,6 @@ public class StatisticActivity extends AppCompatActivity {
             case DAYS:
                 mAdapter = generate_days_adapter();
                 break;
-
             case MONTHS:
                 mAdapter = generate_months_adapter();
                 break;
@@ -49,6 +52,38 @@ public class StatisticActivity extends AppCompatActivity {
         setContentView(R.layout.activity_statistic);
         recyclerView = (RecyclerView) findViewById(R.id.statistic_recycler_view);
 
+        cancel_button = (ImageButton)  findViewById(R.id.statistics_cancel_button);
+        today_button = (Button)  findViewById(R.id.statistics_today_button);
+        days_button = (Button)  findViewById(R.id.statistics_days_button);
+        months_button = (Button)  findViewById(R.id.statistics_months_button);
+
+
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancel_click();
+            }
+        });
+        today_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                today_click();
+            }
+        });
+        days_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                days_click();
+            }
+        });
+        months_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                months_click();
+            }
+        });
+
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         recyclerView.setHasFixedSize(true);
@@ -61,8 +96,6 @@ public class StatisticActivity extends AppCompatActivity {
 
         setAdapter();
     }
-
-
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -78,40 +111,6 @@ public class StatisticActivity extends AppCompatActivity {
         setAdapter();
 
         recyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.statistic_menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.statistics_day_button:
-                screen = Screen.DAY;
-                startActivity(new Intent(this, StatisticActivity.class));
-                return true;
-
-            case R.id.statistics_week_button:
-                screen = Screen.DAYS;
-                startActivity(new Intent(this, StatisticActivity.class));
-                return true;
-
-            case R.id.statistics_month_button:
-                screen = Screen.MONTHS;
-                startActivity(new Intent(this, StatisticActivity.class));
-                return true;
-
-            case R.id.statistics_close_button:
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     public RecyclerView.Adapter generate_day_adapter(){
@@ -170,5 +169,21 @@ public class StatisticActivity extends AppCompatActivity {
         public String getText() {
             return text;
         }
+    }
+
+    private void today_click(){
+        screen = Screen.DAY;
+        startActivity(new Intent(this, StatisticActivity.class));
+    }
+    private void days_click(){
+        screen = Screen.DAYS;
+        startActivity(new Intent(this, StatisticActivity.class));
+    }
+    private void months_click(){
+        screen = Screen.MONTHS;
+        startActivity(new Intent(this, StatisticActivity.class));
+    }
+    private void cancel_click(){
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

@@ -49,7 +49,6 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.close_button:
-                TutorialActivity.activate();
                 startActivity(new Intent(this, MainActivity.class));
                 return true;
 

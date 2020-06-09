@@ -28,7 +28,6 @@
     <string-array name="motivators_ru">
         <item>Жизнь — как вождение велосипеда. Чтобы сохранить равновесие, ты должен двигаться.</item>
         <item>Нет прекрасной поверхности без ужасной глубины.</item>
-        <item>Высшая добродетель заключается в том, чтобы задушить свои страсти. Добродетель более глубокая заключается в том, чтобы привести их в равновесие.</item>
         <item>Где ярче свет - там тени гуще.</item>
         <item>Когда противодействия нет - равновесие невозможно.</item>
         <item>Здоровье сохраняется благодаря равновесию в теле влажного, сухого, холодного, тёплого, горького и сладкого.</item>
@@ -38,7 +37,6 @@
     <string-array name="authors_ru">
         <item>Альберт Эйнштейн</item>
         <item>Фридрих Ницше</item>
-        <item>Альбер Камю</item>
         <item>Иоганн Гёте</item>
         <item>Андре Моруа</item>
         <item>Гиппократ</item>
@@ -47,12 +45,16 @@
 
     <string-array name="motivators_en">
         <item>Life is like riding a bicycle. To keep your balance, you must keep moving.</item>
-        <item>Life is like riding a bicycle. To keep your balance, you must keep moving.</item>
+        <item>He who lives in harmony with himself lives in harmony with the universe.</item>
+        <item>Harmony makes small things grow; lack of it makes great things decay.</item>
+        <item>Always aim at complete harmony of thought and word and deed. Always aim at purifying your thoughts and everything will be well.</item>
     </string-array>
 
     <string-array name="authors_en">
         <item>Albert Einstein</item>
-        <item>Albert Einstein</item>
+        <item>Marcus Aurelius</item>
+        <item>Sallust</item>
+        <item>Mahatma Gandhi</item>
     </string-array>
 
 

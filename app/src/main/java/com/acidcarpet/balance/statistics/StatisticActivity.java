@@ -54,7 +54,7 @@ public class StatisticActivity extends AppCompatActivity {
 
         cancel_button = (ImageButton)  findViewById(R.id.statistics_cancel_button);
         today_button = (Button)  findViewById(R.id.statistics_today_button);
-        days_button = (Button)  findViewById(R.id.statistics_days_button);
+        days_button = (Button)  findViewById(R.id.statistic_days_button);
         months_button = (Button)  findViewById(R.id.statistics_months_button);
 
 

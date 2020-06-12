@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         settings = PreferenceManager.getDefaultSharedPreferences(this);
-        ConsentInformation.getInstance(this).addTestDevice("6A510B5A77801730E22A1AA90F8CB1DF");
+        //ConsentInformation.getInstance(this).addTestDevice("6A510B5A77801730E22A1AA90F8CB1DF");
         // ConsentInformation.getInstance(this).setDebugGeography (DebugGeography.DEBUG_GEOGRAPHY_EEA);
 
         //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -175,9 +175,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        resume_interstitial_ad = new InterstitialAd(this);
-        //resume_interstitial_ad.setAdUnitId("ca-app-pub-3940256099942544/1033173712"); test
-        resume_interstitial_ad.setAdUnitId("ca-app-pub-2464895162956927/8082340975");
+            resume_interstitial_ad = new InterstitialAd(this);
+            resume_interstitial_ad.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+            //resume_interstitial_ad.setAdUnitId("ca-app-pub-2464895162956927/8082340975");
+
+
 
         getConsentStatus();
 
@@ -225,23 +227,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refresh(){
-
-        //BalanceDatabase db = DBContainer.getInstance(MainActivity.this).getDB();
-        //RecordDao recordDao = db.mRecordDao();
-
         double good_percent;
         double bad_percent;
 
         if(DBContainer.getInstance(this).good_percent()==0){
             good_percent = 0;
-            bad_percent = 0;
         }else{
             good_percent = DBContainer.getInstance(this).good_percent();
-            bad_percent = 1 - good_percent;
         }
 
-        good_percent_label.setText(formatter.format(good_percent*100)+"%");
-        bad_percent_label.setText(formatter.format(bad_percent*100)+"%");
+        if(DBContainer.getInstance(this).bad_percent()==0){
+            bad_percent = 0;
+        }else{
+            bad_percent = DBContainer.getInstance(this).bad_percent();
+        }
+
+            good_percent_label.setText(formatter.format(good_percent * 100) + "%");
+            bad_percent_label.setText(formatter.format(bad_percent * 100) + "%");
 
         balance_bar.setProgress((int)(bad_percent*1000)-1);
 
@@ -323,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
     private void displayConsentForm() {
         URL privacyUrl = null;
         try {
-            privacyUrl = new URL("!!!!!!!!!!!!!!!https://my privacy policy url!!!!!!!!!!!!!!!!!");
+            privacyUrl = new URL("https://balance.flycricket.io/privacy.html");
         } catch (MalformedURLException e) {
             Log.e(TAG, "Error processing privacy policy url", e);
         }
@@ -384,12 +386,14 @@ public class MainActivity extends AppCompatActivity {
                     .addNetworkExtrasBundle(AdMobAdapter.class, extras)
                     .build();
         }
-        resume_interstitial_ad.loadAd(adRequest);
+
+
+            resume_interstitial_ad.loadAd(adRequest);
 
         if (resume_interstitial_ad.isLoaded()) {
             resume_interstitial_ad.show();
         } else {
-            Log.d(TAG, "The interstitial wasn't loaded yet.");
+            Log.e(TAG, "The interstitial wasn't loaded yet.");
         }
 
         // load the request into your adView

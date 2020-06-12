@@ -63,7 +63,9 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
     SharedPreferences settings;
 
-    //public static final String APP_PREFERENCES = "root_preferences.xml";
+    static{
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    }
 
     public static final String APP_PREFERENCES_CONSENT = "consent"; // Согласие на показ персонализированной рекламы
     public static final String APP_PREFERENCES_THEME = "theme"; // Режим отображения ночной темы
@@ -94,35 +96,27 @@ public class MainActivity extends AppCompatActivity {
         settings = PreferenceManager.getDefaultSharedPreferences(this);
         //ConsentInformation.getInstance(this).addTestDevice("6A510B5A77801730E22A1AA90F8CB1DF");
         // ConsentInformation.getInstance(this).setDebugGeography (DebugGeography.DEBUG_GEOGRAPHY_EEA);
-
-        //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        //System.err.println(settings.getString(APP_PREFERENCES_CONSENT, "Olololololo"));
-
         if(settings.contains(APP_PREFERENCES_THEME)){
-            //System.err.println("Вошли в if ");
             switch (settings.getString(APP_PREFERENCES_THEME, "AUTO")){
                 case "DAY": AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    //System.err.println("DAY ");
+
                     break;
                 case "NIGHT": AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    //System.err.println("NIGHT");
+
                     break;
                 default:
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
-                    //System.err.println("DEFAULT ");
+
             }
         }else{
-            //System.err.println("Вошли в else ");
-            //settings.edit().remove(APP_PREFERENCES_THEME);
             settings.edit().putString(APP_PREFERENCES_THEME, "AUTO").apply();
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
         }
-        //System.err.println("Перед super onCreate ");
         getDelegate().applyDayNight();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
 
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
@@ -176,10 +170,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
             resume_interstitial_ad = new InterstitialAd(this);
+
+            //test
             resume_interstitial_ad.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+            //work
             //resume_interstitial_ad.setAdUnitId("ca-app-pub-2464895162956927/8082340975");
-
-
 
         getConsentStatus();
 
@@ -309,11 +305,6 @@ public class MainActivity extends AppCompatActivity {
                     initializeAds(true);
                     settings.edit().remove(APP_PREFERENCES_CONSENT);
                     settings.edit().putString(APP_PREFERENCES_CONSENT, "1").apply();
-                    //settings.edit().commit();
-                   // settings.edit().apply();
-                    //System.err.println("settings:"+settings.getString(APP_PREFERENCES_CONSENT, "ЫЫЫ"));
-
-
                 }
             }
             @Override
@@ -343,20 +334,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onConsentFormClosed(ConsentStatus consentStatus, Boolean userPrefersAdFree) {
                         // Consent form was closed.
-                        //SharedPreferences settings = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
-
                         if (consentStatus.equals(ConsentStatus.PERSONALIZED)) {
                             initializeAds(true);
-                            //settings.edit().remove(APP_PREFERENCES_CONSENT);
                             settings.edit().putString(APP_PREFERENCES_CONSENT, "1").apply();
-                            //settings.edit().commit();
-                            //settings.edit().apply();
                         }else {
                             initializeAds(false);
-                            //settings.edit().remove(APP_PREFERENCES_CONSENT);
                             settings.edit().putString(APP_PREFERENCES_CONSENT, "2").apply();
-                            //settings.edit().commit();
-                            //settings.edit().apply();
                         }
                     }
                     @Override
@@ -373,9 +356,6 @@ public class MainActivity extends AppCompatActivity {
     }
     private void initializeAds(boolean isPersonalized) {
         // initialize AdMob and configure your ad
-
-
-
         AdRequest adRequest;
         if (isPersonalized) {
             adRequest = new AdRequest.Builder().build();
@@ -395,9 +375,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.e(TAG, "The interstitial wasn't loaded yet.");
         }
-
         // load the request into your adView
-
     }
 
     public static Long generateUniqueId () {

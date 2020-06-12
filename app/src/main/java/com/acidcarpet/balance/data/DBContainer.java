@@ -36,24 +36,32 @@ public class DBContainer {
         int good = 0;
         int bad = 0;
 
-        if(day().isEmpty()) return 0;
+        if(day().isEmpty()) {
+            Log.d(TAG, "Empty Day. Return 0");
+            return 0;
+        }
         for (Record rec : day()) {
             if (rec.good) good++;
             else bad++;
         }
         double good_percent = (double) good / ((double) bad + (double) good);
+        Log.d(TAG, "Good:"+good+"-Bad:"+bad+"-GoodPercent:"+good_percent);
         return good_percent;
     }
     public double bad_percent() {
         int good = 0;
         int bad = 0;
 
-        if(day().isEmpty()) return 0;
+        if(day().isEmpty()){
+            Log.d(TAG, "Empty Day. Return 0");
+            return 0;
+        }
         for (Record rec : day()) {
             if (!rec.good) bad++;
             else good++;
         }
         double bad_percent = (double) bad / ((double) bad + (double) good);
+        Log.d(TAG, "Good:"+good+"-Bad:"+bad+"-BadPercent:"+bad_percent);
         return bad_percent;
     }
 
@@ -88,21 +96,21 @@ public class DBContainer {
             String formatted_max = day_format.format(end_time);
 
             if (formatted_current.equals(formatted_max)) {
-                System.err.println("День всего один");
+
                 RecordPack pack;
 
                 List<Record> records = dao.getDateQuery(formatted_current+ "%");
                 //System.err.println("RECORDS"+records.isEmpty());
                 if (records != null&&!records.isEmpty()) {
-                    System.err.println("Рекорд пак не пуст");
+
                     pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
                     out.add(pack);
                 }
 
             } else {
-                System.err.println("Дней несколько");
+
                 do {
-                    System.err.println("Начало итерации");
+
                     RecordPack pack;
 
                     Calendar current = Calendar.getInstance();
@@ -123,7 +131,7 @@ public class DBContainer {
                 RecordPack pack;
                 List<Record> records = dao.getDateQuery(formatted_max + "%");
                 if (records != null&&!records.isEmpty()) {
-                    System.err.println("День существует и не пуст");
+
                     pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
                     out.add(pack);
                 }

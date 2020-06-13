@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Balance">
+        <activity android:name=".shop.ShopActivity"></activity>
+
         <receiver android:name=".widget.SmallWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -24,14 +26,16 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/settings_activity_title"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".statistics.StatisticActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".tutorial.TutorialActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".main.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".statistics.StatisticActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".tutorial.TutorialActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.MainActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

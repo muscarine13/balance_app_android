@@ -63,10 +63,6 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
     SharedPreferences settings;
 
-    static{
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-    }
-
     public static final String APP_PREFERENCES_CONSENT = "consent"; // Согласие на показ персонализированной рекламы
     public static final String APP_PREFERENCES_THEME = "theme"; // Режим отображения ночной темы
 
@@ -99,14 +95,11 @@ public class MainActivity extends AppCompatActivity {
         if(settings.contains(APP_PREFERENCES_THEME)){
             switch (settings.getString(APP_PREFERENCES_THEME, "AUTO")){
                 case "DAY": AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
                     break;
                 case "NIGHT": AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
                     break;
                 default:
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
-
             }
         }else{
             settings.edit().putString(APP_PREFERENCES_THEME, "AUTO").apply();
@@ -116,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
@@ -135,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         statistics_button= (ImageButton) findViewById(R.id.statistics_button);
         settings_button= (ImageButton) findViewById(R.id.settings_button);
 
+        //
         tutorial_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //
         good_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -178,11 +172,8 @@ public class MainActivity extends AppCompatActivity {
             //resume_interstitial_ad.setAdUnitId("ca-app-pub-2464895162956927/8082340975");
 
         getConsentStatus();
-
         refresh();
     }
-
-
     @Override
     protected void onResume() {
         super.onResume();

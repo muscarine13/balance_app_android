@@ -25,6 +25,7 @@ public class StatisticActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter mAdapter;
+
     private ImageButton cancel_button;
     private Button today_button;
     private Button days_button;
@@ -121,7 +122,6 @@ public class StatisticActivity extends AppCompatActivity {
 
         for (int i = 0; i<pre_temp_day.size();i++){
             temp_day[i] = pre_temp_day.get(i);
-            System.out.println(temp_day[i]);;
         }
 
         return new DayAdapter(temp_day);
@@ -147,6 +147,8 @@ public class StatisticActivity extends AppCompatActivity {
 
         RecordPack[] temp_months;
         temp_months = new RecordPack[pre_temp_months.size()];
+
+        Collections.reverse(pre_temp_months);
 
         for (int i = 0; i<pre_temp_months.size();i++){
             temp_months[i] = pre_temp_months.get(i);

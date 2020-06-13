@@ -78,7 +78,6 @@ public class DBContainer {
         return out;
     }
     public List<RecordPack> days() {
-        Log.d("DBC", "Начали days");
         List<RecordPack> out = new ArrayList<>();
 
         RecordDao dao = db.mRecordDao();
@@ -100,7 +99,6 @@ public class DBContainer {
                 RecordPack pack;
 
                 List<Record> records = dao.getDateQuery(formatted_current+ "%");
-                //System.err.println("RECORDS"+records.isEmpty());
                 if (records != null&&!records.isEmpty()) {
 
                     pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
@@ -118,7 +116,6 @@ public class DBContainer {
 
                     List<Record> records = dao.getDateQuery(day_format.format(current.getTime()) + "%");
                     if (records != null&&!records.isEmpty()) {
-                        System.err.println("День существует и не пуст");
                         pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
                         out.add(pack);
                     }
@@ -145,7 +142,6 @@ public class DBContainer {
         return out;
     }
     public List<RecordPack> months() {
-            Log.d("DBC", "Начали days");
             List<RecordPack> out = new ArrayList<>();
 
             RecordDao dao = db.mRecordDao();
@@ -163,21 +159,14 @@ public class DBContainer {
                 String formatted_max = month_format.format(end_time);
 
                 if (formatted_current.equals(formatted_max)) {
-
                     RecordPack pack;
-
                     List<Record> records = dao.getDateQuery(formatted_current+ "%");
-
                     if (records != null&&!records.isEmpty()) {
-                        System.err.println("Рекорд пак не пуст");
                         pack = new RecordPack(records.get(0).date, records.get(records.size() - 1).date, records);
                         out.add(pack);
                     }
-
                 } else {
-
                     do {
-
                         RecordPack pack;
 
                         Calendar current = Calendar.getInstance();
@@ -202,19 +191,13 @@ public class DBContainer {
                         out.add(pack);
                     }
                 }
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return out;
     }
 
     public synchronized void add_good_now() {
-
-        Log.d("TAG", "Заводим запись.");
-
         Record aRecord = new Record();
 
         aRecord.id = generateUniqueId();
@@ -223,13 +206,10 @@ public class DBContainer {
         aRecord.good = true;
         db.mRecordDao().insert(aRecord);
 
-        Log.d("TAG", "Заводим запись: " + aRecord.id + " : " + aRecord.date + " : " + aRecord.good);
+        Log.d(TAG, "New record-" + aRecord.id + " : " + aRecord.date + " : " + aRecord.good);
 
     }
     public synchronized void add_bad_now() {
-
-        Log.d("TAG", "Заводим запись.");
-
         Record aRecord = new Record();
 
         aRecord.id = generateUniqueId();
@@ -238,8 +218,7 @@ public class DBContainer {
         aRecord.good = false;
         db.mRecordDao().insert(aRecord);
 
-        Log.d("TAG", "Заводим запись: " + aRecord.id + " : " + aRecord.date + " : " + aRecord.good);
-
+        Log.d(TAG, "New record-" + aRecord.id + " : " + aRecord.date + " : " + aRecord.good);
     }
 
 

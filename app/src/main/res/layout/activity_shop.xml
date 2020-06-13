@@ -67,51 +67,6 @@
         app:layout_constraintTop_toBottomOf="@+id/shop_menuLayout" />
 
     <TextView
-        android:id="@+id/shop_days_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/my_pane_background"
-        android:fontFamily="@font/comfortaa_bold"
-        android:text="Дни 0"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_date_label" />
-
-    <TextView
-        android:id="@+id/shop_hours_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/my_pane_background"
-        android:fontFamily="@font/comfortaa_bold"
-        android:text="Часы 0"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_days_label" />
-
-    <TextView
-        android:id="@+id/shop_minutes_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/my_pane_background"
-        android:fontFamily="@font/comfortaa_bold"
-        android:text="Минуты 0"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_hours_label" />
-
-    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -178,6 +133,6 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shop_minutes_label" />
+        app:layout_constraintTop_toBottomOf="@+id/shop_date_label" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

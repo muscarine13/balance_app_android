@@ -24,9 +24,22 @@
             android:background="@color/my_pane_background"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ad_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_light_bulb_black_" />
+
+        <ImageButton
+            android:id="@+id/ad_button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:background="@color/my_pane_background"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/statistics_button"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_light_bulb_black_" />
+            app:srcCompat="@drawable/ic_diamond" />
 
         <ImageButton
             android:id="@+id/statistics_button"

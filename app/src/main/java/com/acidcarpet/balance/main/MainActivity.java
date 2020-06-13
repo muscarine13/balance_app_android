@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.acidcarpet.balance.R;
 import com.acidcarpet.balance.settings.SettingsActivity;
+import com.acidcarpet.balance.shop.ShopActivity;
 import com.acidcarpet.balance.tutorial.TutorialActivity;
 import com.acidcarpet.balance.Wrench;
 import com.acidcarpet.balance.data.BalanceDatabase;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView author_label;
     private ProgressBar balance_bar;
     private ImageButton tutorial_button;
+    private ImageButton ad_button;
     private ImageButton statistics_button;
     private ImageButton settings_button;
 
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         balance_bar = (ProgressBar) findViewById(R.id.balance_bar);
 
         tutorial_button = (ImageButton) findViewById(R.id.tutorial_button);
+        ad_button = (ImageButton) findViewById(R.id.ad_button);
         statistics_button= (ImageButton) findViewById(R.id.statistics_button);
         settings_button= (ImageButton) findViewById(R.id.settings_button);
 
@@ -132,6 +135,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tutorial_tap();
+            }
+        });
+        ad_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad_button_tap();
             }
         });
         statistics_button.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
 
             //work
             //resume_interstitial_ad.setAdUnitId("ca-app-pub-2464895162956927/8082340975");
-
         getConsentStatus();
         refresh();
     }
@@ -205,6 +213,9 @@ public class MainActivity extends AppCompatActivity {
     private void tutorial_tap(){
         TutorialActivity.activate();
         startActivity(new Intent(this, TutorialActivity.class));
+    }
+    private void ad_button_tap(){
+        startActivity(new Intent(this, ShopActivity.class));
     }
     private void statistics_tap(){
         startActivity(new Intent(this, StatisticActivity.class));
@@ -257,6 +268,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getConsentStatus() {
+        if(settings.getLong("ad_free_date", 0)>new Date().getTime()) return;
+
         ConsentInformation consentInformation = ConsentInformation.getInstance(this);
         String[] publisherIds = {"pub-2464895162956927"};
 

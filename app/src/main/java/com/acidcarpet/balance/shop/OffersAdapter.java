@@ -1,6 +1,7 @@
 package com.acidcarpet.balance.shop;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.acidcarpet.balance.data.DBContainer;
 import com.acidcarpet.balance.data.Record;
 import com.acidcarpet.balance.data.RecordDao;
 import com.acidcarpet.balance.statistics.StatisticActivity;
+
+import java.util.Date;
 
 public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHolder> {
 
@@ -65,7 +68,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHold
             holder.offer_buy_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    new BuyOffer(v, dataset[position]).run();
                 }
             });
 
@@ -78,30 +81,42 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHold
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return dataset.length;
     }
 
 
 
-    public class DeleteThread implements Runnable {
-        Record mRecord;
-        View mView;
+    public class BuyOffer implements Runnable {
+        Offer offer;
+        View view;
 
-        public DeleteThread(View view, Record aRecord){
-            mRecord = aRecord;
-            mView = view;
+        public BuyOffer(View view, Offer offer){
+            this.offer = offer;
+            this.view = view;
         }
 
         @Override
         public void run() {
-            BalanceDatabase db = DBContainer.getInstance(mView.getContext()).getDB();
-            RecordDao recordDao = db.mRecordDao();
-            recordDao.delete(mRecord);
-            //System.err.println("Перед изменением");
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(view.getContext());
+            int diamonds = preferences.getInt("diamonds",0);
+            long ad_free_time = preferences.getLong("ad_free_date", 0);
+
+            long now = new Date().getTime();
+
+            if(diamonds>=offer.getDiamonds_coast()){
+                preferences.edit().putInt("diamonds", diamonds-offer.getDiamonds_coast()).apply();
+
+                if(ad_free_time<=now){
+                    preferences.edit().putLong("ad_free_date", now+offer.getMs_add()).apply();
+                }else{
+                    preferences.edit().putLong("ad_free_date", ad_free_time+offer.getMs_add()).apply();
+                }
+            }
+
+
             notifyDataSetChanged();
-            StatisticActivity activity =(StatisticActivity) mView.getContext();
-            activity.setAdapter();
-            //System.err.println("После изменения");
+            ShopActivity activity =(ShopActivity) view.getContext();
+            activity.refresh();
         }
     }
 }

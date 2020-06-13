@@ -43,22 +43,9 @@
     <string name="settings_theme_night">Ночная</string>
     <string name="settings_theme_auto">Автоматически</string>
 
-    <string name="month_1">Январь</string>
-    <string name="month_2">Февраль</string>
-    <string name="month_3">Март</string>
-    <string name="month_4">Апрель</string>
-    <string name="month_5">Май</string>
-    <string name="month_6">Июнь</string>
-    <string name="month_7">Июль</string>
-    <string name="month_8">Август</string>
-    <string name="month_9">Сентябрь</string>
-    <string name="month_10">Октябрь</string>
-    <string name="month_11">Ноябрь</string>
-    <string name="month_12">Декабрь</string>
-
-    <string name="shop_minutes">Минуты</string>
-    <string name="shop_hours">Минуты</string>
-    <string name="shop_days">Минуты</string>
+    <string name="shop_minutes">Минут</string>
+    <string name="shop_hours">Часов</string>
+    <string name="shop_days">Дней</string>
 
     <string name="shop_watch_ad_button_title">Смотреть рекламу</string>
     <string name="shop_thanks">Просматривая рекламу вы поддерживаете разработчика. Спасибо.</string>

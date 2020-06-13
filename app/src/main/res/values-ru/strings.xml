@@ -25,4 +25,12 @@
     <string name="settings_theme_day">Дневная</string>
     <string name="settings_theme_night">Ночная</string>
     <string name="settings_theme_auto">Автоматически</string>
+    <string name="shop_watch_ad_button_title">Смотреть видео</string>
+    <string name="shop_thanks">Просматривая рекламу вы поддерживаете разработчика. Спасибо.</string>
+    <string name="shop_offer_hours_6">+6 часов</string>
+    <string name="shop_offer_hours_12">+12 часов</string>
+    <string name="shop_offer_day_1">+1 день</string>
+    <string name="shop_offer_day_7">+7 дней</string>
+    <string name="shop_offer_day_30">+30 дней</string>
+    <string name="shop_ad_expired">РЕКЛАМА ПОКАЗЫВАЕТСЯ</string>
 </resources>

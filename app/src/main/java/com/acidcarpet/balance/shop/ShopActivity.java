@@ -36,8 +36,8 @@ public class ShopActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     private RewardedVideoAd mRewardedVideoAd;
 
-    //private String ad_id = "ca-app-pub-2464895162956927/7011701805"; //main
-    private String ad_id = "ca-app-pub-3940256099942544/5224354917"; //test
+    private String ad_id = "ca-app-pub-2464895162956927/7011701805"; //main
+    //private String ad_id = "ca-app-pub-3940256099942544/5224354917"; //test
 
     public static final String TAG = "SHOP_ACTIVITY";
     public static final SimpleDateFormat date_format = new SimpleDateFormat("dd.MM.yyy");
@@ -62,69 +62,50 @@ public class ShopActivity extends AppCompatActivity implements RewardedVideoAdLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        recyclerView = findViewById(R.id.shop_offers_recyclerView);
-
-        cancel_button = findViewById(R.id.shop_cancel_button);
-        diamonds_textView = findViewById(R.id.shop_diamond_textView);
-
-        date_textView = findViewById(R.id.shop_date_label);
-
-        watch_ad_button = findViewById(R.id.shop_watch_ad_button);
-
-        watch_ad_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                watch_click();
-            }
-        });
-        cancel_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancel_click();
-            }
-        });
-
-
-
-        MobileAds.initialize(this, ad_id);
-        // Use an activity context to get the rewarded video instance.
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
-        mRewardedVideoAd.setRewardedVideoAdListener(this);
-
-        loadRewardedVideoAd();
-
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        adapter = generate_offers_adapter();
-        recyclerView.setAdapter(adapter);
-
+        set_all();
         refresh();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mRewardedVideoAd != null) {
+            mRewardedVideoAd.destroy(this);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        recyclerView.setAdapter(adapter);
-        refresh();
+        if (mRewardedVideoAd != null) {
+            mRewardedVideoAd.resume(this);
+        }
+        //Log.d(TAG, "Рефреш закончен");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mRewardedVideoAd != null) {
+            mRewardedVideoAd.pause(this);
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
         setContentView(R.layout.activity_shop);
-        recyclerView = (RecyclerView) findViewById(R.id.shop_offers_recyclerView);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        adapter = generate_offers_adapter();
-
-        recyclerView.setAdapter(adapter);
+//        recyclerView = (RecyclerView) findViewById(R.id.shop_offers_recyclerView);
+//        recyclerView.setHasFixedSize(true);
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//
+//        adapter = generate_offers_adapter();
+//
+//        recyclerView.setAdapter(adapter);
+        set_all();
         refresh();
+
     }
 
 
@@ -203,24 +184,59 @@ public class ShopActivity extends AppCompatActivity implements RewardedVideoAdLi
         return new OffersAdapter(temp_offers);
     }
 
+    public void set_all(){
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        recyclerView = findViewById(R.id.shop_offers_recyclerView);
+        cancel_button = findViewById(R.id.shop_cancel_button);
+        diamonds_textView = findViewById(R.id.shop_diamond_textView);
+        date_textView = findViewById(R.id.shop_date_label);
+        watch_ad_button = findViewById(R.id.shop_watch_ad_button);
+        watch_ad_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                watch_click();
+            }
+        });
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancel_click();
+            }
+        });
+
+        MobileAds.initialize(this, ad_id);
+        // Use an activity context to get the rewarded video instance.
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
+
+        loadRewardedVideoAd();
+
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = generate_offers_adapter();
+        recyclerView.setAdapter(adapter);
+    }
     public void refresh(){
-        Log.d(TAG, "Зашли в рефреш");
+        //Log.d(TAG, "Зашли в рефреш");
         long now = new Date().getTime();
         long expired = preferences.getLong("ad_free_date", 0);
-        Log.d(TAG, "Сейчас:"+now+"\n"+"Истекает:"+expired);
+        //Log.d(TAG, "Сейчас:"+now+"\n"+"Истекает:"+expired);
 
         int diamonds = preferences.getInt("diamonds", 0);
-        Log.d(TAG, "Алмазов:"+diamonds);
+        //Log.d(TAG, "Алмазов:"+diamonds);
 
         try{
             diamonds_textView.setText(diamonds+"");
         }catch (Exception e){
-            Log.d(TAG, "Ошибка:"+e.getMessage());
+            Log.e(TAG, "Ошибка:"+e.getMessage());
         }
 
 
         if(expired<=now){
-            date_textView.setText("ПОКАЗ РЕКЛАМЫ");
+            date_textView.setText(getResources().getString(R.string.shop_ad_expired));
 
         }else{
             String date_string =

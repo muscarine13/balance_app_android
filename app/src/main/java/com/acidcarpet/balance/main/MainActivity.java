@@ -175,10 +175,10 @@ public class MainActivity extends AppCompatActivity {
             resume_interstitial_ad = new InterstitialAd(this);
 
             //test
-            resume_interstitial_ad.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+            //resume_interstitial_ad.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
             //work
-            //resume_interstitial_ad.setAdUnitId("ca-app-pub-2464895162956927/8082340975");
+            resume_interstitial_ad.setAdUnitId("ca-app-pub-2464895162956927/8082340975");
         getConsentStatus();
         refresh();
     }

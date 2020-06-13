@@ -25,4 +25,12 @@
     <string name="settings_theme_day">Day</string>
     <string name="settings_theme_night">Night</string>
     <string name="settings_theme_auto">System</string>
+    <string name="shop_watch_ad_button_title">Watch video</string>
+    <string name="shop_thanks">" By viewing the ads you support the developer. Thank."</string>
+    <string name="shop_offer_hours_6">+6 hours</string>
+    <string name="shop_offer_hours_12">+12 hours</string>
+    <string name="shop_offer_day_1">+1 day</string>
+    <string name="shop_offer_day_7">+7 days</string>
+    <string name="shop_offer_day_30">+30 days</string>
+    <string name="shop_ad_expired">ADVERTISING SHOWS</string>
 </resources>

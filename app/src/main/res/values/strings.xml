@@ -43,12 +43,10 @@
     <string name="settings_theme_night">Ночная</string>
     <string name="settings_theme_auto">Автоматически</string>
 
-    <string name="shop_minutes">Минут</string>
-    <string name="shop_hours">Часов</string>
-    <string name="shop_days">Дней</string>
 
     <string name="shop_watch_ad_button_title">Смотреть рекламу</string>
     <string name="shop_thanks">Просматривая рекламу вы поддерживаете разработчика. Спасибо.</string>
+    <string name="shop_ad_expired">РЕКЛАМА ПОКАЗЫВАЕТСЯ</string>
 
     <string name="shop_offer_hours_6">+6 часов</string>
     <string name="shop_offer_hours_12">+12 часов</string>

@@ -46,11 +46,8 @@ public class StatisticActivity extends AppCompatActivity {
         }
         recyclerView.setAdapter(mAdapter);
     }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistic);
+    private void set_all(){
         recyclerView = (RecyclerView) findViewById(R.id.statistic_recycler_view);
 
         cancel_button = (ImageButton)  findViewById(R.id.statistics_cancel_button);
@@ -98,20 +95,20 @@ public class StatisticActivity extends AppCompatActivity {
         setAdapter();
     }
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_statistic);
+
+        set_all();
+    }
+    @Override
     protected void onRestart() {
         super.onRestart();
         setContentView(R.layout.activity_statistic);
-        recyclerView = (RecyclerView) findViewById(R.id.statistic_recycler_view);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        recyclerView.setHasFixedSize(true);
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        // specify an adapter (see also next example)
-        setAdapter();
 
-        recyclerView.setAdapter(mAdapter);
+        set_all();
+
+        //recyclerView.setAdapter(mAdapter);
     }
 
     public RecyclerView.Adapter generate_day_adapter(){

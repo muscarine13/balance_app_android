@@ -15,7 +15,6 @@ public class Offer {
     }
     private static List<Offer> set_offers(Context context){
         List<Offer> offers = new ArrayList<>();
-        offers.add(new Offer("+2м (тест)", 3, 1000*60*2));
         offers.add(new Offer(context.getResources().getString(R.string.shop_offer_hours_6), 3, 21600000l));
         offers.add(new Offer(context.getResources().getString(R.string.shop_offer_hours_12), 4, 43200000l));
         offers.add(new Offer(context.getResources().getString(R.string.shop_offer_day_1), 6, 86400000l));

@@ -269,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getConsentStatus() {
         if(settings.getLong("ad_free_date", 0)>new Date().getTime()) return;
+        if(new Date().getTime()-settings.getLong("ad_last_date", 0)<30000) return;
 
         ConsentInformation consentInformation = ConsentInformation.getInstance(this);
         String[] publisherIds = {"pub-2464895162956927"};
@@ -376,6 +377,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (resume_interstitial_ad.isLoaded()) {
             resume_interstitial_ad.show();
+            settings.edit().putLong("ad_last_date", new Date().getTime()).apply();
         } else {
             Log.e(TAG, "The interstitial wasn't loaded yet.");
         }

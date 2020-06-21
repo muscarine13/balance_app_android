@@ -10,8 +10,8 @@ android {
         applicationId "com.acidcarpet.balance"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 3
-        versionName "0.0.13"
+        versionCode 4
+        versionName "0.0.14"
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         signingConfig signingConfigs.debug
